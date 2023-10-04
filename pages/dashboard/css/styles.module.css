@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  gap: 1rem;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.editor {
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  outline: none;
+  border: none;
+  font-family: 'Courier New', Courier, monospace;
+  resize: none;
+}
+
+.previewContainer {
+  width: 100%;
+  padding: 16px 5px;
+}
+
+.modeButton {
+  display: flex;
+  gap: 5px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.deleteButton {
+  background: transparent;
+  border: none;
+  color: #FF2429;
+  cursor: pointer;
+}

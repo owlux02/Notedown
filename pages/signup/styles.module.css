@@ -1,0 +1,49 @@
+.container {
+  display: grid;
+  place-content: center;
+  height: 85dvh;
+  height: 85vh;
+}
+
+.title {
+  font-family: Greycliff CF, var(--mantine-font-family);
+  font-weight: 900;
+}
+
+.form {
+  width: 100%;
+  min-width: 350px;
+  max-width: 500px;
+}
+
+.label {
+  -webkit-tap-highlight-color: transparent;
+  cursor: default;
+  font-size: var(--input-label-size, var(--mantine-font-size-sm));
+  font-weight: 500;
+  word-break: break-word;
+}
+
+.required {
+  color: var(--input-asterisk-color, var(--mantine-color-red-filled));
+  margin-left: 3px;
+}
+
+.formLink {
+  padding-top: calc(0.125rem * var(--mantine-scale));
+  font-size: var(--mantine-font-size-xs);
+  font-weight: 500;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  color: var(--mantine-color-anchor);
+  cursor: pointer;
+  display: inline;
+  margin: 0;
+  padding: 0;
+  text-decoration: var(--_text-decoration, none);
+}
+
+.formLink:hover {
+  text-decoration: underline;
+}
