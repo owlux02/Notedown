@@ -15,7 +15,7 @@ import Markdown from 'react-markdown';
 import Editor from '@monaco-editor/react';
 import { Toaster, toast } from 'sonner';
 
-import { UserButton } from './components/UserButton';
+import UserButton from './components/UserButton';
 import classes from './css/NavBar.module.css';
 import styles from './css/styles.module.css';
 import { supabase } from '@/lib/supabaseClient';

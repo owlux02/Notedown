@@ -11,7 +11,7 @@ import { IconChevronRight } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import classes from './UserButton.module.css';
 
-export function UserButton() {
+export default function UserButton() {
   const [username, setUsername] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
