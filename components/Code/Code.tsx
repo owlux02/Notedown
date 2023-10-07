@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import jsx from 'react-syntax-highlighter';
-import {
-  materialDark,
-  materialLight,
-} from 'react-syntax-highlighter';
+import materialLight from 'react-syntax-highlighter';
+import materialDark from 'react-syntax-highlighter';
 
 import { CopyIcon, PasteIcon, SunIcon, MoonIcon } from './assets/assets';
 import styles from './styles.module.css';
