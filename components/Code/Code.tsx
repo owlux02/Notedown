@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import jsx from 'react-syntax-highlighter';
-import materialLight from 'react-syntax-highlighter';
-import materialDark from 'react-syntax-highlighter';
+import jsx from 'react-syntax-highlighter/dist/cjs/languages/prism/jsx'
+import {
+  materialDark,
+  materialLight,
+} from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 import { CopyIcon, PasteIcon, SunIcon, MoonIcon } from './assets/assets';
 import styles from './styles.module.css';
@@ -46,7 +48,7 @@ const CodeMD = ({ children, language, isDark, setIsDark }: any) => {
         language={language}
         style={isDark ? materialDark : materialLight}
       >
-        {children}
+        {children.props.children}
       </SyntaxHighlighter>
     </div>
   );

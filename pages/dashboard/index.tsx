@@ -175,7 +175,12 @@ const Dashboard = ({ notesFromServer }: any) => {
                 Your Notes
               </Text>
               <Tooltip label="Create a new note" withArrow position="right">
-                <ActionIcon variant="default" size={18} onClick={createNote} data-cy='create-note-btn'>
+                <ActionIcon
+                  variant="default"
+                  size={18}
+                  onClick={createNote}
+                  data-cy="create-note-btn"
+                >
                   <IconPlus
                     style={{ width: rem(12), height: rem(12) }}
                     stroke={1.5}
@@ -217,7 +222,7 @@ const Dashboard = ({ notesFromServer }: any) => {
             <Markdown
               options={{
                 overrides: {
-                  Code: {
+                  pre: {
                     component: CodeMD,
                     props: {
                       isDark,
@@ -233,10 +238,17 @@ const Dashboard = ({ notesFromServer }: any) => {
 
           {noteContent !== '' && (
             <div className={styles.modeButton}>
-              <Button onClick={saveNote} disabled={sentSaveNote} data-cy="save-note-btn">
+              <Button
+                onClick={saveNote}
+                disabled={sentSaveNote}
+                data-cy="save-note-btn"
+              >
                 {sentSaveNote ? 'Saving...' : 'Save'}
               </Button>
-              <Button onClick={() => setEditorMode(!editorMode)} data-cy="editor-mode-btn">
+              <Button
+                onClick={() => setEditorMode(!editorMode)}
+                data-cy="editor-mode-btn"
+              >
                 {editorMode ? 'Viewer Mode' : 'Editor Mode'}
               </Button>
             </div>
