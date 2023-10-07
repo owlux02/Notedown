@@ -33,13 +33,13 @@ export default function SignUp() {
 
   // Password strength requirements
 
-  function PasswordRequirement({
+  const PasswordRequirement = ({
     meets,
     label,
   }: {
     meets: boolean;
     label: string;
-  }) {
+  }) => {
     return (
       <Text component="div" c={meets ? 'teal' : 'red'} mt={5} size="sm">
         <Center inline>
@@ -52,7 +52,7 @@ export default function SignUp() {
         </Center>
       </Text>
     );
-  }
+  };
 
   const requirements = [
     { re: /[0-9]/, label: 'Includes number' },
@@ -61,7 +61,7 @@ export default function SignUp() {
     { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Includes special symbol' },
   ];
 
-  function getStrength(password: string) {
+  const getStrength = (password: string) => {
     let multiplier = password.length > 5 ? 0 : 1;
 
     requirements.forEach((requirement) => {
@@ -71,10 +71,11 @@ export default function SignUp() {
     });
 
     return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 0);
-  }
+  };
 
   const [value, setValue] = useInputState('');
   const strength = getStrength(value);
+
   const checks = requirements.map((requirement, index) => (
     <PasswordRequirement
       key={index}
@@ -82,6 +83,7 @@ export default function SignUp() {
       meets={requirement.re.test(value)}
     />
   ));
+
   const bars = Array(4)
     .fill(0)
     .map((_, index) => (
@@ -100,9 +102,19 @@ export default function SignUp() {
       />
     ));
 
-  async function createAccount(event: FormEvent) {
+  const createAccount = async (event: FormEvent) => {
     event.preventDefault();
     setLoading(true);
+  
+    // find if user exists
+    const { data } = await supabase.from(TABLE_NAME).select('name');
+    const user = data?.find((user) => user.name === userRef.current?.value);
+
+    if (user) {
+      toast.error('This user already exists!');
+      setLoading(false);
+      return;
+    }
 
     const { error } = await supabase.from(TABLE_NAME).insert([
       {
@@ -120,7 +132,7 @@ export default function SignUp() {
     router.push('/dashboard');
 
     setLoading(false);
-  }
+  };
 
   return (
     <>
@@ -145,6 +157,7 @@ export default function SignUp() {
             type="text"
             id="your-username"
             ref={userRef}
+            data-cy="username-input-signup"
             required
           />
 
@@ -157,6 +170,7 @@ export default function SignUp() {
               placeholder="Password"
               label="Password"
               mt={10}
+              data-cy="password-input-signup"
               required
             />
 
@@ -171,7 +185,7 @@ export default function SignUp() {
             {checks}
           </div>
 
-          <Button type="submit" mt={5} w="100%" disabled={loading}>
+          <Button type="submit" mt={5} w="100%" disabled={loading} data-cy='createAccount-btn'>
             {loading ? 'Creating Account...' : 'Create Account'}
           </Button>
 

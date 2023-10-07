@@ -2,7 +2,6 @@ import {
   PasswordInput,
   Text,
   Group,
-  Anchor,
   Button,
   Input,
   Title,
@@ -31,7 +30,7 @@ export default function Login() {
 
   const router = useRouter();
 
-  async function login(event: FormEvent) {
+  const login = async (event: FormEvent) => {
     event.preventDefault();
     setLoading(true);
 
@@ -82,6 +81,7 @@ export default function Login() {
             required
             value={username}
             onChange={(event: any) => setUsername(event.target.value)}
+            data-cy='username-input-login'
           />
 
           <Group mb={5} mt={10}>
@@ -95,10 +95,11 @@ export default function Login() {
             ref={passRef}
             value={password}
             onChange={(event: any) => setPassword(event.target.value)}
+            data-cy='password-input-login'
             required
           />
 
-          <Button type="submit" mt={5} w="100%" disabled={loading}>
+          <Button type="submit" mt={5} w="100%" disabled={loading} data-cy='login-btn'>
             {loading ? 'Login...' : 'Login'}
           </Button>
 

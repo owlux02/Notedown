@@ -21,6 +21,10 @@
   padding: 16px 5px;
 }
 
+.previewContainer h1 {
+  margin: 0 0 10px 0;
+}
+
 .modeButton {
   display: flex;
   gap: 5px;
@@ -32,6 +36,6 @@
 .deleteButton {
   background: transparent;
   border: none;
-  color: #FF2429;
+  color: #ff2429;
   cursor: pointer;
 }

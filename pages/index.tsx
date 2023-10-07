@@ -1,10 +1,9 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import Nav from '@/components/Nav/Nav';
 import Welcome from '@/components/Welcome/Welcome';
 import Footer from '@/components/Footer/Footer';
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <Head>
@@ -19,3 +18,5 @@ export default function Home() {
     </>
   );
 }
+
+export default Home;

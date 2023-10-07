@@ -14,7 +14,7 @@ import Link from 'next/link';
 import image from './image.svg';
 import classes from './welcome.module.css';
 
-export default function Welcome() {
+const Welcome = () => {
   return (
     <Container size="md">
       <div className={classes.inner}>
@@ -23,7 +23,7 @@ export default function Welcome() {
             A <span className={classes.highlight}>simple</span> <br />{' '}
             note-taking app
           </Title>
-          <Text c="dimmed" mt="md">
+          <Text c="dimmed" mt="md" className={classes.balance}>
             Take notes with Notedown and you never have to worry about losing
             them!
           </Text>
@@ -41,13 +41,13 @@ export default function Welcome() {
               </ThemeIcon>
             }
           >
-            <List.Item>
+            <List.Item className={classes.balance}>
               <b>Simple</b> – with a clean interface
             </List.Item>
-            <List.Item>
+            <List.Item className={classes.balance}>
               <b>Free and open source</b> - with MIT license
             </List.Item>
-            <List.Item>
+            <List.Item className={classes.balance}>
               <b>Multiple Sync</b> - you can sync your data between all your
               devices
             </List.Item>
@@ -76,3 +76,5 @@ export default function Welcome() {
     </Container>
   );
 }
+
+export default Welcome;

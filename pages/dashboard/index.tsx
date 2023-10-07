@@ -11,7 +11,9 @@ import {
 } from '@mantine/core';
 import { IconSearch, IconPlus } from '@tabler/icons-react';
 import { useEffect, useRef, useState } from 'react';
-import Markdown from 'react-markdown';
+import Markdown from 'markdown-to-jsx';
+import CodeMD from '@/components/Code/Code';
+
 import Editor from '@monaco-editor/react';
 import { Toaster, toast } from 'sonner';
 
@@ -20,8 +22,10 @@ import classes from './css/NavBar.module.css';
 import styles from './css/styles.module.css';
 import { supabase } from '@/lib/supabaseClient';
 import { TABLE_NAME } from '@/consts/consts';
+import NotesData from './components/NotesData';
 
-export default function Dashboard({ notesFromServer }: any) {
+const Dashboard = ({ notesFromServer }: any) => {
+  const [isDark, setIsDark] = useState(true);
   const [notes, setNotes]: any = useState([]);
   const [noteContent, setNoteContent] = useState('');
   const [editorMode, setEditorMode] = useState(false);
@@ -32,7 +36,7 @@ export default function Dashboard({ notesFromServer }: any) {
   const [firstPageLoad, setFirstPageLoad] = useState(true);
   const editorMDRef: any = useRef(null);
 
-  async function saveNote() {
+  const saveNote = async () => {
     setSentSaveNote(true);
     const username = localStorage.getItem('username');
 
@@ -57,9 +61,9 @@ export default function Dashboard({ notesFromServer }: any) {
     }
     toast.success('Note added!');
     setSentSaveNote(false);
-  }
+  };
 
-  async function deleteNote(event: any) {
+  const deleteNote = async (event: any) => {
     const confirmDelete = window.confirm('Are you sure?');
 
     if (confirmDelete) {
@@ -85,21 +89,21 @@ export default function Dashboard({ notesFromServer }: any) {
       toast.success('Note deleted!');
       return;
     }
-  }
+  };
 
-  function createNote() {
+  const createNote = () => {
     const newNote: any = prompt('Create new note');
     setNoteTitle(newNote);
     setNotes([
       ...notes,
       { label: newNote, content: '# Type here your awesome note' },
     ]);
-  }
+  };
 
   const filterBySearch = (event: any) => {
     const query = event.target.value;
     const updatedList = [...notesFromServer];
-    
+
     const filteredNotes = updatedList[0].notes.filter(
       (item: any) =>
         item.label.toLowerCase().indexOf(query.toLowerCase()) !== -1
@@ -108,12 +112,12 @@ export default function Dashboard({ notesFromServer }: any) {
     setNotes(filteredNotes);
   };
 
-  function handleEditorDidMount(editor: any) {
+  const handleEditorDidMount = (editor: any) => {
     editorMDRef.current = editor;
     editor.onDidBlurEditorWidget(() => {
       setNoteContent(editorMDRef.current?.value);
     });
-  }
+  };
 
   useEffect(() => {
     const user = localStorage.getItem('username');
@@ -129,7 +133,7 @@ export default function Dashboard({ notesFromServer }: any) {
       setNotes(findYourNotes.notes);
       setFirstPageLoad(false);
     }
-  }, []);
+  }, [firstPageLoad, notesFromServer]);
 
   return (
     <>
@@ -159,6 +163,7 @@ export default function Dashboard({ notesFromServer }: any) {
             rightSection={<Code className={classes.searchCode}>Ctrl + K</Code>}
             styles={{ section: { pointerEvents: 'none' } }}
             mb="sm"
+            data-cy="search-input"
           />
 
           <div className={classes.section}>
@@ -170,7 +175,7 @@ export default function Dashboard({ notesFromServer }: any) {
                 Your Notes
               </Text>
               <Tooltip label="Create a new note" withArrow position="right">
-                <ActionIcon variant="default" size={18} onClick={createNote}>
+                <ActionIcon variant="default" size={18} onClick={createNote} data-cy='create-note-btn'>
                   <IconPlus
                     style={{ width: rem(12), height: rem(12) }}
                     stroke={1.5}
@@ -178,37 +183,11 @@ export default function Dashboard({ notesFromServer }: any) {
                 </ActionIcon>
               </Tooltip>
             </Group>
-            <div className={classes.collections}>
-              {notes.map((note: any) => (
-                <a
-                  href="#"
-                  onClick={(event) => {
-                    event.preventDefault();
-                    setNoteContent(note.content);
-                  }}
-                  key={note?.label}
-                  className={classes.collectionLink}
-                >
-                  {note?.label}
-                  <button
-                    className={styles.deleteButton}
-                    onClick={deleteNote}
-                    id={note?.label}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      className="bi bi-trash3"
-                      viewBox="0 0 16 16"
-                    >
-                      <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z" />
-                    </svg>
-                  </button>
-                </a>
-              ))}
-            </div>
+            <NotesData
+              notes={notes}
+              onSetNote={setNoteContent}
+              onDeleteNote={deleteNote}
+            />
           </div>
         </nav>
 
@@ -235,15 +214,29 @@ export default function Dashboard({ notesFromServer }: any) {
               }}
             />
           ) : (
-            <Markdown>{noteContent}</Markdown>
+            <Markdown
+              options={{
+                overrides: {
+                  Code: {
+                    component: CodeMD,
+                    props: {
+                      isDark,
+                      setIsDark,
+                    },
+                  },
+                },
+              }}
+            >
+              {noteContent}
+            </Markdown>
           )}
 
           {noteContent !== '' && (
             <div className={styles.modeButton}>
-              <Button onClick={saveNote} disabled={sentSaveNote}>
+              <Button onClick={saveNote} disabled={sentSaveNote} data-cy="save-note-btn">
                 {sentSaveNote ? 'Saving...' : 'Save'}
               </Button>
-              <Button onClick={() => setEditorMode(!editorMode)}>
+              <Button onClick={() => setEditorMode(!editorMode)} data-cy="editor-mode-btn">
                 {editorMode ? 'Viewer Mode' : 'Editor Mode'}
               </Button>
             </div>
@@ -252,7 +245,9 @@ export default function Dashboard({ notesFromServer }: any) {
       </main>
     </>
   );
-}
+};
+
+export default Dashboard;
 
 export const getServerSideProps = async () => {
   const { data } = await supabase.from(TABLE_NAME).select('name, notes');

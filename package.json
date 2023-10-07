@@ -24,10 +24,12 @@
     "cypress": "^13.3.0",
     "eslint": "8.50.0",
     "eslint-config-next": "13.5.3",
+    "markdown-to-jsx": "^7.3.2",
     "next": "13.5.3",
     "react": "18.2.0",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "18.2.0",
-    "react-markdown": "^9.0.0",
+    "react-syntax-highlighter": "^15.5.0",
     "sonner": "^1.0.3",
     "typescript": "5.2.2"
   },

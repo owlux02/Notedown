@@ -21,3 +21,12 @@
     margin-top: var(--mantine-spacing-md);
   }
 }
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: rem(40px);
+}

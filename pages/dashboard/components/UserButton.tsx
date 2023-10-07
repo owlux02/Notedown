@@ -15,10 +15,10 @@ export default function UserButton() {
   const [username, setUsername] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
-  function logout() {
+  const logout = () => {
     localStorage.removeItem('username');
     window.location.href = '/login';
-  }
+  };
 
   useEffect(() => {
     const user: any = localStorage.getItem('username');
@@ -26,7 +26,11 @@ export default function UserButton() {
   }, [username]);
 
   return (
-    <UnstyledButton className={classes.user} onClick={() => setIsOpen(!isOpen)}>
+    <UnstyledButton
+      className={classes.user}
+      onClick={() => setIsOpen(!isOpen)}
+      data-cy="options-menu"
+    >
       <Group>
         <Avatar src="profileIcon.png" radius="xl" />
 
@@ -43,7 +47,13 @@ export default function UserButton() {
       </Group>
       {isOpen && (
         <Box mt={15} className={classes.opts}>
-          <Button className={classes.logoutButton} onClick={logout}>Log Out</Button>
+          <Button
+            className={classes.logoutButton}
+            onClick={logout}
+            data-cy="logout-btn"
+          >
+            Log Out
+          </Button>
           <Button>Settings</Button>
         </Box>
       )}
