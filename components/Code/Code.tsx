@@ -7,10 +7,10 @@ import {
   materialLight,
 } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
-import { CopyIcon, PasteIcon, SunIcon, MoonIcon } from './assets/assets';
+import { CopyIcon, PasteIcon } from './assets/assets';
 import styles from './styles.module.css';
 
-const CodeMD = ({ children, language, isDark, setIsDark }: any) => {
+const CodeMD = ({ children, language }: any) => {
   const [isCopied, setIsCopied] = useState(false);
 
   SyntaxHighlighter.registerLanguage('jsx', jsx);
@@ -25,11 +25,7 @@ const CodeMD = ({ children, language, isDark, setIsDark }: any) => {
   return (
     <div className={styles.code}>
       <div className={styles.codeIcons}>
-        <button onClick={() => setIsDark(!isDark)}>
-          {isDark ? <MoonIcon /> : <SunIcon />}
-        </button>
-
-        <CopyToClipboard text={children}>
+        <CopyToClipboard text={children.props.children}>
           <button onClick={() => setCopied()}>
             {isCopied ? (
               <span title="Copied!">
@@ -46,7 +42,7 @@ const CodeMD = ({ children, language, isDark, setIsDark }: any) => {
 
       <SyntaxHighlighter
         language={language}
-        style={isDark ? materialDark : materialLight}
+        style={materialDark}
       >
         {children.props.children}
       </SyntaxHighlighter>

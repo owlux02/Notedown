@@ -89,15 +89,21 @@ const Dashboard = ({ notesFromServer }: any) => {
       toast.success('Note deleted!');
       return;
     }
+    return null;
   };
 
   const createNote = () => {
-    const newNote: any = prompt('Create new note');
-    setNoteTitle(newNote);
-    setNotes([
-      ...notes,
-      { label: newNote, content: '# Type here your awesome note' },
-    ]);
+    const newNote: any = prompt('File name');
+
+    if (newNote) {
+      setNoteTitle(newNote);
+      setNotes([
+        ...notes,
+        { label: newNote, content: '# Type here your awesome note' },
+      ]);
+      return;
+    }
+    return null;
   };
 
   const filterBySearch = (event: any) => {
@@ -174,19 +180,33 @@ const Dashboard = ({ notesFromServer }: any) => {
               <Text size="xs" fw={500} c="dimmed">
                 Your Notes
               </Text>
-              <Tooltip label="Create a new note" withArrow position="right">
-                <ActionIcon
-                  variant="default"
-                  size={18}
-                  onClick={createNote}
-                  data-cy="create-note-btn"
-                >
-                  <IconPlus
-                    style={{ width: rem(12), height: rem(12) }}
-                    stroke={1.5}
-                  />
-                </ActionIcon>
-              </Tooltip>
+              <Group>
+                <Tooltip label="Create a new note" withArrow position="right">
+                  <ActionIcon
+                    variant="default"
+                    size={30}
+                    pl={2}
+                    pr={2}
+                    onClick={createNote}
+                    data-cy="create-note-btn"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-file-earmark-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z" />
+                    </svg>
+                    <IconPlus
+                      style={{ width: rem(12), height: rem(12) }}
+                      stroke={1.5}
+                    />
+                  </ActionIcon>
+                </Tooltip>
+              </Group>
             </Group>
             <NotesData
               notes={notes}
@@ -224,10 +244,6 @@ const Dashboard = ({ notesFromServer }: any) => {
                 overrides: {
                   pre: {
                     component: CodeMD,
-                    props: {
-                      isDark,
-                      setIsDark,
-                    },
                   },
                 },
               }}

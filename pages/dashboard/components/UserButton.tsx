@@ -8,6 +8,7 @@ import {
   Box,
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import classes from './UserButton.module.css';
 
@@ -51,10 +52,10 @@ export default function UserButton() {
             className={classes.logoutButton}
             onClick={logout}
             data-cy="logout-btn"
+            fullWidth
           >
             Log Out
           </Button>
-          <Button>Settings</Button>
         </Box>
       )}
     </UnstyledButton>
