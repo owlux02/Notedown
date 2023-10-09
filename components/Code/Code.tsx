@@ -1,16 +1,10 @@
 import { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import jsx from 'react-syntax-highlighter/dist/cjs/languages/prism/jsx'
-import { materialDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-
 import { CopyIcon, PasteIcon } from './assets/assets';
 import styles from './styles.module.css';
 
 const CodeMD = ({ children, language }: any) => {
   const [isCopied, setIsCopied] = useState(false);
-
-  SyntaxHighlighter.registerLanguage('jsx', jsx);
 
   const setCopied = () => {
     setIsCopied(true);
@@ -37,12 +31,9 @@ const CodeMD = ({ children, language }: any) => {
         </CopyToClipboard>
       </div>
 
-      <SyntaxHighlighter
-        language={language}
-        style={materialDark}
-      >
+      <pre>
         {children.props.children}
-      </SyntaxHighlighter>
+      </pre>
     </div>
   );
 };

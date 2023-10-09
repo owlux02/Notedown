@@ -25,7 +25,6 @@ import { TABLE_NAME } from '@/consts/consts';
 import NotesData from './components/NotesData';
 
 const Dashboard = ({ notesFromServer }: any) => {
-  const [isDark, setIsDark] = useState(true);
   const [notes, setNotes]: any = useState([]);
   const [noteContent, setNoteContent] = useState('');
   const [editorMode, setEditorMode] = useState(false);
@@ -59,7 +58,7 @@ const Dashboard = ({ notesFromServer }: any) => {
       toast.error('Something went wrong');
       throw new Error(error.message);
     }
-    toast.success('Note added!');
+    toast.success('Note saved!');
     setSentSaveNote(false);
   };
 
