@@ -9,7 +9,7 @@ type Note = {
 const NotesData = ({ notes, onSetNote, onDeleteNote }: any) => {
   return (
     <div className={classes.collections}>
-      {notes.map((note: Note) => (
+      {notes?.map((note: Note) => (
         <a
           href="#"
           onClick={(event) => {
