@@ -1,10 +1,8 @@
 .code {
   position: relative;
-}
-
-.code pre {
-  padding-top: 2rem !important;
-  transition: .3s ease all;
+  background: #292B32;
+  padding: 10px;
+  border-radius: 3px;
 }
 
 .codeIcons {
