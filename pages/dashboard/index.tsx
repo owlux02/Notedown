@@ -42,7 +42,8 @@ const Dashboard = ({ notesFromServer }: any) => {
     const noteIndex = notes.findIndex((note: any) => note.label === noteTitle);
 
     if (noteIndex) {
-      notes.at(noteIndex).content = editorMDRef.current?.value;
+      notes.at(noteIndex).content =
+        editorMDRef.current?.value ?? '# Type here your awesome note';
       setNotes([...notes]);
     }
 
@@ -67,16 +68,16 @@ const Dashboard = ({ notesFromServer }: any) => {
 
     if (confirmDelete) {
       const username = localStorage.getItem('username');
-      const noteIndex = notes.findIndex(
-        (note: any) => note.label === event.target.id
+
+      const notesFiltered = notes.filter(
+        (note: any) => note.label !== event.currentTarget.id
       );
-      notesFromServer[0].notes.splice(noteIndex, 1);
-      setNotes([...notesFromServer[0].notes]);
+      setNotes(notesFiltered);
 
       const { error } = await supabase
         .from(TABLE_NAME)
         .update({
-          notes: [...notesFromServer[0].notes],
+          notes: [...notesFiltered],
         })
         .eq('name', username)
         .select();
@@ -232,7 +233,7 @@ const Dashboard = ({ notesFromServer }: any) => {
                 glyphMargin: false,
                 folding: false,
                 // Undocumented see https://github.com/Microsoft/vscode/issues/30795#issuecomment-410998882
-                lineDecorationsWidth: 0,
+                lineDecorationsWidth: 5,
                 lineNumbersMinChars: 0,
                 tabSize: 2,
               }}
