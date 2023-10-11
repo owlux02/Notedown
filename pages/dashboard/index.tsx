@@ -14,7 +14,6 @@ import { useEffect, useRef, useState } from 'react';
 import Markdown from 'markdown-to-jsx';
 import CodeMD from '@/components/Code/Code';
 
-import Editor from '@monaco-editor/react';
 import { Toaster, toast } from 'sonner';
 
 import UserButton from './components/UserButton';
@@ -43,7 +42,7 @@ const Dashboard = ({ notesFromServer }: any) => {
 
     if (noteIndex) {
       notes.at(noteIndex).content =
-        editorMDRef.current?.value ?? '# Type here your awesome note';
+        noteContent ?? '# Type here your awesome note';
       setNotes([...notes]);
     }
 
@@ -116,13 +115,6 @@ const Dashboard = ({ notesFromServer }: any) => {
     );
 
     setNotes(filteredNotes);
-  };
-
-  const handleEditorDidMount = (editor: any) => {
-    editorMDRef.current = editor;
-    editor.onDidBlurEditorWidget(() => {
-      setNoteContent(editorMDRef.current?.value);
-    });
   };
 
   useEffect(() => {
@@ -218,26 +210,12 @@ const Dashboard = ({ notesFromServer }: any) => {
 
         <section className={styles.previewContainer}>
           {editorMode && noteContent !== '' ? (
-            <Editor
+            <textarea
+              className={styles.editor}
               defaultValue={noteContent}
-              onMount={handleEditorDidMount}
-              theme="vs-dark"
-              language="markdown"
-              onChange={(value) => (editorMDRef.current.value = value)}
-              options={{
-                minimap: {
-                  enabled: false,
-                },
-
-                lineNumbers: 'off',
-                glyphMargin: false,
-                folding: false,
-                // Undocumented see https://github.com/Microsoft/vscode/issues/30795#issuecomment-410998882
-                lineDecorationsWidth: 5,
-                lineNumbersMinChars: 0,
-                tabSize: 2,
-              }}
-            />
+              onBlur={() => setNoteContent(editorMDRef.current.value)}
+              ref={editorMDRef}
+            ></textarea>
           ) : (
             <Markdown
               options={{
