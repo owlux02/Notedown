@@ -1,8 +1,6 @@
 # Notedown
 Take your notes with markdown.
 
-![Image](https://github.com/martinval11/Notedown/blob/main/screenshots/home.png?raw=true)
-
 ## Setup
 ```shell
 $ git clone https://github.com/martinval11/Notedown.git
@@ -22,3 +20,6 @@ $ bun install
 - Supabase
 - Mantine
 - Cypress
+
+# Screenshot
+![Image](https://github.com/martinval11/Notedown/blob/main/screenshots/home.png?raw=true)
