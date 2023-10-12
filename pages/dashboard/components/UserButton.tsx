@@ -8,7 +8,6 @@ import {
   Box,
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import classes from './UserButton.module.css';
 
