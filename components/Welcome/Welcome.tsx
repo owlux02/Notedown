@@ -51,6 +51,9 @@ const Welcome = () => {
               <b>Multiple Sync</b> - you can sync your data between all your
               devices
             </List.Item>
+            <List.Item className={classes.balance}>
+              <b>Markdown Support</b> - you can use markdown code in your notes
+            </List.Item>
           </List>
 
           <Group mt={30}>
