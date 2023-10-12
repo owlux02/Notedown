@@ -328,6 +328,7 @@ const Dashboard = ({ notesFromServer }: any) => {
               defaultValue={noteContent}
               onBlur={() => setNoteContent(editorMDRef.current.value)}
               ref={editorMDRef}
+              autoFocus
             ></textarea>
           ) : (
             <Markdown
