@@ -21,5 +21,5 @@ $ bun install
 - Mantine
 - Cypress
 
-# Screenshot
+## Screenshot
 ![Image](https://github.com/martinval11/Notedown/blob/main/screenshots/home.png?raw=true)
