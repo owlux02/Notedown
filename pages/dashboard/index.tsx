@@ -308,8 +308,9 @@ const Dashboard = ({ notesFromServer }: any) => {
             </Group>
             <NotesData
               notes={notes}
-              onSetNote={setNoteContent}
+              onSetContent={setNoteContent}
               onDeleteNote={deleteNote}
+              onClickNote={closeDrawer}
             />
           </div>
         </Box>
