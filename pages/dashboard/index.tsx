@@ -1,13 +1,19 @@
 import Head from 'next/head';
+import Image from 'next/image';
+import { useDisclosure } from '@mantine/hooks';
+
 import {
   TextInput,
-  Code,
   Text,
   Group,
   ActionIcon,
   Tooltip,
   rem,
   Button,
+  Box,
+  Burger,
+  Drawer,
+  ScrollArea,
 } from '@mantine/core';
 import { IconSearch, IconPlus } from '@tabler/icons-react';
 import { useEffect, useRef, useState } from 'react';
@@ -24,6 +30,8 @@ import { TABLE_NAME } from '@/consts/consts';
 import NotesData from './components/NotesData';
 
 const Dashboard = ({ notesFromServer }: any) => {
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
+    useDisclosure(false);
   const [notes, setNotes]: any = useState([]);
   const [noteContent, setNoteContent] = useState('');
   const [editorMode, setEditorMode] = useState(false);
@@ -109,12 +117,22 @@ const Dashboard = ({ notesFromServer }: any) => {
     const query = event.target.value;
     const updatedList = [...notesFromServer];
 
-    const filteredNotes = updatedList[0].notes.filter(
-      (item: any) =>
-        item.label.toLowerCase().indexOf(query.toLowerCase()) !== -1
+    // find the username in the DB and target the notes
+    const username = localStorage.getItem('username');
+    const userNotes = updatedList.findIndex(
+      (note: any) => note.name === username
     );
 
-    setNotes(filteredNotes);
+    if (userNotes) {
+      const filteredNotes = updatedList
+        .at(userNotes)
+        .notes.filter(
+          (item: any) =>
+            item.label.toLowerCase().indexOf(query.toLowerCase()) !== -1
+        );
+
+      setNotes(filteredNotes);
+    }
   };
 
   useEffect(() => {
@@ -142,7 +160,96 @@ const Dashboard = ({ notesFromServer }: any) => {
       </Head>
       <Toaster richColors />
       <main className={styles.container}>
-        <nav className={classes.navbar}>
+        <Box className={classes.navbarMobile} hiddenFrom="sm">
+          <Drawer
+            opened={drawerOpened}
+            onClose={closeDrawer}
+            size="85%"
+            padding="md"
+            title="Menu"
+            hiddenFrom="sm"
+            zIndex={1000000}
+          >
+            <div className={classes.section}>
+              <UserButton />
+            </div>
+
+            <TextInput
+              placeholder="Search"
+              size="xs"
+              onChange={filterBySearch}
+              leftSection={
+                <IconSearch
+                  style={{ width: rem(12), height: rem(12) }}
+                  stroke={1.5}
+                />
+              }
+              rightSectionWidth={70}
+              styles={{ section: { pointerEvents: 'none' } }}
+              mb="sm"
+              data-cy="search-input"
+            />
+            <ScrollArea mx="-md">
+              <Group
+                justify="center"
+                grow
+                pb="xl"
+                px="md"
+                className={classes.navNotesContainer}
+              >
+                <header>
+                  <Text size="xs" fw={500} c="dimmed">
+                    Your Notes
+                  </Text>
+                  <Group>
+                    <Tooltip
+                      label="Create a new note"
+                      withArrow
+                      position="right"
+                    >
+                      <Button
+                        variant="default"
+                        pl={2}
+                        pr={2}
+                        onClick={createNote}
+                        data-cy="create-note-btn"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-file-earmark-fill"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3z" />
+                        </svg>
+                        <IconPlus
+                          style={{ width: rem(12), height: rem(12) }}
+                          stroke={1.5}
+                        />
+                      </Button>
+                    </Tooltip>
+                  </Group>
+                </header>
+
+                <NotesData
+                  notes={notes}
+                  onSetContent={setNoteContent}
+                  onDeleteNote={deleteNote}
+                  onClickNote={closeDrawer}
+                />
+              </Group>
+            </ScrollArea>
+          </Drawer>
+          <Burger
+            opened={drawerOpened}
+            onClick={toggleDrawer}
+            hiddenFrom="sm"
+          />
+        </Box>
+
+        <Box className={classes.navbar} visibleFrom="sm">
           <div className={classes.section}>
             <UserButton />
           </div>
@@ -158,7 +265,6 @@ const Dashboard = ({ notesFromServer }: any) => {
               />
             }
             rightSectionWidth={70}
-            rightSection={<Code className={classes.searchCode}>Ctrl + K</Code>}
             styles={{ section: { pointerEvents: 'none' } }}
             mb="sm"
             data-cy="search-input"
@@ -206,9 +312,15 @@ const Dashboard = ({ notesFromServer }: any) => {
               onDeleteNote={deleteNote}
             />
           </div>
-        </nav>
+        </Box>
 
         <section className={styles.previewContainer}>
+          {noteContent === '' && !editorMode ? (
+            <div className={styles.page404}>
+              <Image src="/404.svg" alt="404" width={250} height={250} />
+              Oh, there is no content here, try selecting a note in the menu.
+            </div>
+          ) : null}
           {editorMode && noteContent !== '' ? (
             <textarea
               className={styles.editor}

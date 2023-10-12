@@ -144,7 +144,7 @@ export default function SignUp() {
       <Toaster richColors />
       <div className={styles.container}>
         <form className={styles.form} onSubmit={createAccount}>
-          <Title className={styles.title}>SignUp</Title>
+          <Title className={styles.title}>Sign Up</Title>
 
           <Group justify="space-between" mb={5} mt={10}>
             <Text component="label" htmlFor="your-username" size="sm" fw={500}>

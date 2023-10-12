@@ -59,7 +59,7 @@ const Welcome = () => {
                 Get started
               </Button>
             </Link>
-            <Link href="https://github.com/martinval11/Notedown">
+            <Link href="https://github.com/martinval11/Notedown" target="_blank" rel="noopener noreferrer">
               <Button
                 variant="default"
                 radius="xl"
