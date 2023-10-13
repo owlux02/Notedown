@@ -98,7 +98,7 @@ const Dashboard = ({ notesFromServer }: any) => {
   };
 
   const createNote = () => {
-    const newNote: any = prompt('File name');
+    const newNote: any = prompt('Name of your note');
 
     // Check if the note already exists
     const isNoteExist = notes.find((note: any) => note.label === newNote);
