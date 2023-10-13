@@ -8,7 +8,7 @@ const Home = () => {
     <>
       <Head>
         <title>Notedown</title>
-        <meta name="description" content="Another note-talking app" />
+        <meta name="description" content="Another notes app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
