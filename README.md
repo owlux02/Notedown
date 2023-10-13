@@ -23,3 +23,8 @@ $ bun install
 
 ## Screenshot
 ![Image](https://github.com/martinval11/Notedown/blob/main/screenshots/home.png?raw=true)
+
+## Donate
+If you want to support this project, you can donate me to continue with this project <3
+
+[![Invitame un café en cafecito.app](https://cdn.cafecito.app/imgs/buttons/button_2.svg)](https://cafecito.app/martinval11)
