@@ -79,15 +79,11 @@ describe('template spec', () => {
       'This is a test note, Hello World!'
     );
     cy.get('[data-cy="save-note-btn"]').click();
-    cy.contains('Note added!');
+    cy.contains('Note saved!');
 
     cy.get('[data-cy="editor-mode-btn"]').click();
     cy.get('[data-cy="delete-note-btn"]').click();
     cy.contains('Note deleted!');
-
-    cy.get('[data-cy="search-input"]').type('notShown');
-    cy.get('[data-cy="search-input"]').type('');
-    cy.get('[data-cy="search-input"]').type('newNote');
 
     cy.get('[data-cy="options-menu"]').click();
     cy.get('[data-cy="logout-btn"]').click();

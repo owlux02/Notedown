@@ -7,22 +7,28 @@ type Note = {
   content: string;
 };
 
-const NotesData = ({ notes, onSetContent, onDeleteNote, onClickNote }: any) => {
+const NotesData = ({
+  notes,
+  onSetContent,
+  onDeleteNote,
+  onClickNote,
+  noteTitle,
+}: any) => {
   return (
     <div className={classes.collections}>
-      <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md" className={classes.scrollbar}>
-        <Group
-          justify="stretch"
-          grow
-
-          className={classes.navNotes}
-        >
+      <ScrollArea
+        h={`calc(100vh - ${rem(80)})`}
+        mx="-md"
+        className={classes.scrollbar}
+      >
+        <Group justify="stretch" grow className={classes.navNotes}>
           {notes?.map((note: Note) => (
             <a
               href="#"
               onClick={(event) => {
                 event.preventDefault();
                 onSetContent(note.content);
+                noteTitle(note.label);
                 onClickNote();
               }}
               key={note?.label}
