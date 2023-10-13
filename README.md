@@ -27,4 +27,8 @@ $ bun install
 ## Donate
 If you want to support this project, you can donate me to continue with this project <3
 
+### Argentina Only
 [![Invitame un café en cafecito.app](https://cdn.cafecito.app/imgs/buttons/button_2.svg)](https://cafecito.app/martinval11)
+
+### Other Countries
+Coming soon...
