@@ -62,14 +62,14 @@ const Welcome = () => {
                 Get started
               </Button>
             </Link>
-            <Link href="https://github.com/martinval11/Notedown" target="_blank" rel="noopener noreferrer">
+            <Link href="https://cafecito.app/martinval11" target="_blank" rel="noopener noreferrer">
               <Button
                 variant="default"
                 radius="xl"
                 size="md"
                 className={classes.control}
               >
-                Source code
+                Donate via Cafecito
               </Button>
             </Link>
           </Group>

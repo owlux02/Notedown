@@ -318,7 +318,7 @@ const Dashboard = ({ notesFromServer }: any) => {
         <section className={styles.previewContainer}>
           {noteContent === '' && !editorMode ? (
             <div className={styles.page404}>
-              <Image src="/404.svg" alt="404" width={250} height={250} />
+              <Image src="/notfound.svg" alt="404" width={250} height={250} />
               Oh, there is no content here, try selecting a note in the menu.
             </div>
           ) : null}
