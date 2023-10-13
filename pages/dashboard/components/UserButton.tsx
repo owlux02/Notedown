@@ -9,6 +9,7 @@ import {
 } from '@mantine/core';
 import { IconChevronRight } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import classes from './UserButton.module.css';
 
 export default function UserButton() {
@@ -55,6 +56,9 @@ export default function UserButton() {
           >
             Log Out
           </Button>
+          <Link href="/dashboard/settings">
+            <Button>Settings</Button>
+          </Link>
         </Box>
       )}
     </UnstyledButton>

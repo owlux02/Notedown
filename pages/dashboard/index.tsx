@@ -45,14 +45,12 @@ const Dashboard = ({ notesFromServer }: any) => {
   const saveNote = async () => {
     setSentSaveNote(true);
     const username = localStorage.getItem('username');
-
     const noteIndex = notes.findIndex((note: any) => note.label === noteTitle);
 
-    if (noteIndex) {
-      notes.at(noteIndex).content =
-        noteContent ?? '# Type here your awesome note';
-      setNotes([...notes]);
-    }
+    const noteValue = editorMDRef?.current?.value || noteContent;
+
+    notes.at(noteIndex).content = noteValue ?? '# Type here your awesome note';
+    setNotes([...notes]);
 
     const { error } = await supabase
       .from(TABLE_NAME)
@@ -101,6 +99,14 @@ const Dashboard = ({ notesFromServer }: any) => {
 
   const createNote = () => {
     const newNote: any = prompt('File name');
+
+    // Check if the note already exists
+    const isNoteExist = notes.find((note: any) => note.label === newNote);
+
+    if (isNoteExist) {
+      toast.error('Note already exists');
+      return;
+    }
 
     if (newNote) {
       setNoteTitle(newNote);
@@ -237,7 +243,13 @@ const Dashboard = ({ notesFromServer }: any) => {
                   notes={notes}
                   onSetContent={setNoteContent}
                   onDeleteNote={deleteNote}
-                  onClickNote={closeDrawer}
+                  onClickNote={() => {
+                    closeDrawer();
+                    if (editorMode) {
+                      setEditorMode(false);
+                    }
+                  }}
+                  noteTitle={setNoteTitle}
                 />
               </Group>
             </ScrollArea>
@@ -310,26 +322,35 @@ const Dashboard = ({ notesFromServer }: any) => {
               notes={notes}
               onSetContent={setNoteContent}
               onDeleteNote={deleteNote}
-              onClickNote={closeDrawer}
+              onClickNote={() => {
+                closeDrawer();
+                if (editorMode) {
+                  setEditorMode(false);
+                }
+              }}
+              noteTitle={setNoteTitle}
             />
           </div>
         </Box>
 
         <section className={styles.previewContainer}>
           {noteContent === '' && !editorMode ? (
-            <div className={styles.page404}>
+            <div className={styles.notFound}>
               <Image src="/notfound.svg" alt="404" width={250} height={250} />
               Oh, there is no content here, try selecting a note in the menu.
             </div>
           ) : null}
           {editorMode && noteContent !== '' ? (
-            <textarea
-              className={styles.editor}
-              defaultValue={noteContent}
-              onBlur={() => setNoteContent(editorMDRef.current.value)}
-              ref={editorMDRef}
-              autoFocus
-            ></textarea>
+            <>
+              <small>Markdown Editor</small>
+              <textarea
+                className={styles.editor}
+                defaultValue={noteContent}
+                onBlur={() => setNoteContent(editorMDRef.current.value)}
+                ref={editorMDRef}
+                autoFocus
+              ></textarea>
+            </>
           ) : (
             <Markdown
               options={{

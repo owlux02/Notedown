@@ -6,6 +6,7 @@ const Document = () => {
     <Html lang="en">
       <Head>
         <ColorSchemeScript defaultColorScheme="auto" />
+        <script src="/static/theme.js" async></script>
       </Head>
       <body>
         <Main />

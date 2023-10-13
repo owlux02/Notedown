@@ -1,0 +1,20 @@
+.flex {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.goBack {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  background: #228BE6;
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 18px;
+  border-radius: 4px;
+}
+
+.goBack:hover {
+  background: #1C7ED6;
+}
