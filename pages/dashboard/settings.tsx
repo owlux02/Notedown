@@ -25,13 +25,13 @@ const Settings = () => {
 
       toast.promise(deleteUserFromDB, {
         loading: 'Loading...',
-        success: () => {
+        success: (): any => {
           toast.success('Account deleted');
           localStorage.removeItem('username');
           window.location.href = '/';
           return;
         },
-        error: () => {
+        error: (): any => {
           toast.error('Failed to delete account')
           return;
         },
