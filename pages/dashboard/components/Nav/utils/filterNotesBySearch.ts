@@ -1,4 +1,4 @@
-export const filterNotesBySearch = (
+const filterNotesBySearch = (
   query: any,
   notes: any,
   filterNotes: any,
@@ -22,3 +22,5 @@ export const filterNotesBySearch = (
   filterNotes(filteredNotes);
   return;
 };
+
+export default filterNotesBySearch;
