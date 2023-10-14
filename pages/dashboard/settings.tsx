@@ -68,7 +68,7 @@ const Settings = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Toaster richColors />
-      <Box p={15}>
+      <Box p={15} className={styles.container}>
         <h1>Settings</h1>
         <div className={styles.flex}>
           <Checkbox

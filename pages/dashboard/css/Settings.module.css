@@ -1,3 +1,8 @@
+.container {
+  margin: 1em auto;
+  max-width: 40em;
+}
+
 .flex {
   display: flex;
   gap: 5px;
@@ -8,7 +13,7 @@
   position: absolute;
   bottom: 15px;
   right: 15px;
-  background: #228BE6;
+  background: #228be6;
   color: #fff;
   text-decoration: none;
   padding: 10px 18px;
@@ -16,18 +21,17 @@
 }
 
 .goBack:hover {
-  background: #1C7ED6;
+  background: #1c7ed6;
 }
 
 .dangerZoneContainer {
-  border-top: 1px solid #E51A21;
+  border-top: 1px solid #e51a21;
 }
 
-
 .dangerZoneContainer button {
-  background: #E51A21;
-  
+  background: #e51a21;
+
   @mixin hover {
-    background: #C7191F;
+    background: #c7191f;
   }
 }
