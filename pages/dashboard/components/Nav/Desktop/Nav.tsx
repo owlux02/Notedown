@@ -12,7 +12,7 @@ import { IconSearch, IconPlus } from '@tabler/icons-react';
 import UserButton from '../../UserButton';
 import classes from '../../../css/NavBar.module.css';
 import NotesData from '../../NotesData';
-import filterNotesBySearch from '../utils/filterNotesBySearch';
+import filterNotesBySearch from '@/lib/filterNotesBySearch';
 
 const NavDesktop = ({
   notesClient,

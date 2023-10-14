@@ -19,7 +19,7 @@ import NotesData from '../../NotesData';
 
 import classes from '../../../css/NavBar.module.css';
 
-import filterNotesBySearch from '../utils/filterNotesBySearch';
+import filterNotesBySearch from '@/lib/filterNotesBySearch';
 
 const NavMobile = ({
   notesClient,
