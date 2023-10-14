@@ -20,7 +20,7 @@ import { Toaster, toast } from 'sonner';
 import { FormEvent, useRef, useState } from 'react';
 import { TABLE_NAME } from '@/consts/consts';
 
-export default function Login() {
+const Login = () => {
   const [loading, setLoading] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -112,3 +112,5 @@ export default function Login() {
     </>
   );
 }
+
+export default Login;

@@ -24,7 +24,7 @@ import { supabase } from '@/lib/supabaseClient';
 import { encrypt } from '@/lib/security/encrypt';
 import { TABLE_NAME } from '@/consts/consts';
 
-export default function SignUp() {
+const SignUp = () => {
   const [loading, setLoading] = useState(false);
 
   const userRef: any = useRef<HTMLInputElement>(null);
@@ -198,3 +198,5 @@ export default function SignUp() {
     </>
   );
 }
+
+export default SignUp;
