@@ -18,3 +18,16 @@
 .goBack:hover {
   background: #1C7ED6;
 }
+
+.dangerZoneContainer {
+  border-top: 1px solid #E51A21;
+}
+
+
+.dangerZoneContainer button {
+  background: #E51A21;
+  
+  @mixin hover {
+    background: #C7191F;
+  }
+}

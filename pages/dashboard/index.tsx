@@ -153,13 +153,13 @@ const Dashboard = ({ notesFromServer }: any) => {
         <section className={styles.previewContainer}>
           {noteContent === '' && !editorMode ? (
             <div className={styles.notFound}>
-              <Image src="/notfound.svg" alt="404" width={250} height={250} />
+              <Image src="/notfound.svg" alt="404" width={250} height={250} priority />
               Oh, there is no content here, try selecting a note in the menu.
             </div>
           ) : null}
           {editorMode && noteContent !== '' ? (
             <>
-              <small>Markdown Editor</small>
+              <small>{noteTitle} - Markdown Editor</small>
               <textarea
                 className={styles.editor}
                 defaultValue={noteContent}

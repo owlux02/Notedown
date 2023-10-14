@@ -1,12 +1,50 @@
 import Head from 'next/head';
-import { Box, Checkbox, Group, Text } from '@mantine/core';
+import { Box, Checkbox, Text, Button } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import Link from 'next/link'
+import Link from 'next/link';
+import { toast, Toaster } from 'sonner';
 
 import styles from './css/Settings.module.css';
+import { supabase } from '@/lib/supabaseClient';
+import { TABLE_NAME } from '@/consts/consts';
 
 const Settings = () => {
   const [darkMode, setDarkMode] = useState(true);
+
+  const deleteAccount = async () => {
+    const username = localStorage.getItem('username');
+    const confirmation = prompt(
+      `Are you sure you want to delete your account?\nThis action cannot be undone.\n\nType "${username}" to confirm.`
+    );
+
+    if (confirmation && confirmation === username) {
+      const deleteUserFromDB = () =>
+        new Promise((resolve) => {
+          resolve(supabase.from(TABLE_NAME).delete().eq('name', username));
+        });
+
+      toast.promise(deleteUserFromDB, {
+        loading: 'Loading...',
+        success: () => {
+          toast.success('Account deleted');
+          localStorage.removeItem('username');
+          window.location.href = '/';
+          return;
+        },
+        error: () => {
+          toast.error('Failed to delete account')
+          return;
+        },
+      });
+      return;
+    }
+
+    if (confirmation !== username) {
+      toast.error('Invalid confirmation');
+      return;
+    }
+    return null;
+  };
 
   useEffect(() => {
     /*
@@ -29,6 +67,7 @@ const Settings = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Toaster richColors />
       <Box p={15}>
         <h1>Settings</h1>
         <div className={styles.flex}>
@@ -51,6 +90,11 @@ const Settings = () => {
           />
           <Text>Dark Mode</Text>
         </div>
+
+        <Box mt={35} className={styles.dangerZoneContainer}>
+          <h2>Danger Zone</h2>
+          <Button onClick={deleteAccount} mt={2}>Delete my account</Button>
+        </Box>
 
         <Link href="/dashboard" className={styles.goBack}>
           Go back to the Dashboard
