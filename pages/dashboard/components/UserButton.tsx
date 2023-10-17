@@ -33,7 +33,7 @@ export default function UserButton() {
       data-cy="options-menu"
     >
       <Group>
-        <Avatar src="profileIcon.png" radius="xl" />
+        <Avatar src="/img/profileIcon.png" radius="xl" />
 
         <div style={{ flex: 1 }}>
           <Text size="sm" fw={500}>

@@ -8,7 +8,7 @@ const Nav = () => {
     <Box className={classes.header}>
       <Group justify="space-between" h="100%">
         <div className={classes.logo}>
-          <Image src="/favicon.ico" alt="Logo img" width={40} height={40} />
+          <Image src="/favicon.ico" alt="Notedown Logo" width={40} height={40} />
           <b>Notedown</b>
         </div>
 

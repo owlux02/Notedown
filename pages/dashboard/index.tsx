@@ -169,8 +169,8 @@ const Dashboard = ({ notesFromServer }: any) => {
           {noteContent === '' && !editorMode ? (
             <div className={styles.notFound}>
               <Image
-                src="/notfound.svg"
-                alt="404"
+                src="/img/notfound.svg"
+                alt="No Content here"
                 width={250}
                 height={250}
                 priority

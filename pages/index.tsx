@@ -27,14 +27,14 @@ const Home = () => {
         />
         <meta
           property="og:image"
-          content="https://notedown-md.vercel.app/ogImage.png"
+          content="https://notedown-md.vercel.app/img/ogImage.png"
         />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="notedown-md.vercel.app" />
         <meta
           property="twitter:url"
-          content="https://notedown-md.vercel.app/ogImage.png"
+          content="https://notedown-md.vercel.app/img/ogImage.png"
         />
         <meta name="twitter:title" content="Notedown" />
         <meta
@@ -43,7 +43,7 @@ const Home = () => {
         />
         <meta
           name="twitter:image"
-          content="https://notedown-md.vercel.app/ogImage.png"
+          content="https://notedown-md.vercel.app/img/ogImage.png"
         />
       </Head>
       <Nav />
