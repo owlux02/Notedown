@@ -94,8 +94,9 @@ const Dashboard = ({ notesFromServer }: any) => {
 
     // Check if the note already exists
     const isNoteExist = notes.find((note: any) => note.label === newNote);
+    const isNoteCopyExist = notesCopy.find((note: any) => note.label === newNote);
 
-    if (isNoteExist) {
+    if (isNoteExist || isNoteCopyExist) {
       toast.error('Note already exists');
       return;
     }
@@ -144,7 +145,7 @@ const Dashboard = ({ notesFromServer }: any) => {
       <main className={styles.container}>
         <NavMobile
           notesClient={notes}
-          notesServer={notesFromServer}
+          notesServer={notesCopy}
           createNote={createNote}
           editorMode={setEditorMode}
           noteContent={setNoteContent}
