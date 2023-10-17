@@ -12,8 +12,8 @@ import styles from './css/styles.module.css';
 import { supabase } from '@/lib/supabaseClient';
 import { TABLE_NAME } from '@/consts/consts';
 
-import NavMobile from './components/Nav/Mobile/Nav';
-import NavDesktop from './components/Nav/Desktop/Nav';
+import NavMobile from '@/components/Dashboard/Nav/Mobile/Nav';
+import NavDesktop from '@/components/Dashboard/Nav/Desktop/Nav';
 
 const Dashboard = ({ notesFromServer }: any) => {
   const [notes, setNotes]: any = useState([]);

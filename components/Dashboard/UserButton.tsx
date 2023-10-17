@@ -10,7 +10,7 @@ import {
 import { IconChevronRight } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import classes from './UserButton.module.css';
+import classes from './css/UserButton.module.css';
 
 export default function UserButton() {
   const [username, setUsername] = useState('');

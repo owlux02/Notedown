@@ -16,10 +16,8 @@ import { IconSearch, IconPlus } from '@tabler/icons-react';
 
 import UserButton from '../../UserButton';
 import NotesData from '../../NotesData';
-
-import classes from '../../../css/NavBar.module.css';
-
 import filterNotesBySearch from '@/lib/filterNotesBySearch';
+import classes from '../../css/NavBar.module.css';
 
 const NavMobile = ({
   notesClient,
@@ -52,10 +50,9 @@ const NavMobile = ({
         <TextInput
           placeholder="Search"
           size="xs"
-
-        onChange={(event: any) =>
-          filterNotesBySearch(event.target.value, notesServer, filterNotes)
-        }
+          onChange={(event: any) =>
+            filterNotesBySearch(event.target.value, notesServer, filterNotes)
+          }
           leftSection={
             <IconSearch
               style={{ width: rem(12), height: rem(12) }}
