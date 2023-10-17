@@ -10,9 +10,9 @@ import {
 import { IconSearch, IconPlus } from '@tabler/icons-react';
 
 import UserButton from '../../UserButton';
-import classes from '../../../css/NavBar.module.css';
 import NotesData from '../../NotesData';
 import filterNotesBySearch from '@/lib/filterNotesBySearch';
+import classes from '../../css/NavBar.module.css';
 
 const NavDesktop = ({
   notesClient,

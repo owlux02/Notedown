@@ -1,5 +1,5 @@
-import classes from '../css/NavBar.module.css';
-import styles from '../css/styles.module.css';
+import classes from './css/NavBar.module.css';
+import styles from './css/styles.module.css';
 import { ScrollArea, rem, Group } from '@mantine/core';
 
 type Note = {
