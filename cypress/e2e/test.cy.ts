@@ -75,7 +75,7 @@ describe('template spec', () => {
     cy.get('[data-cy="create-note-btn"]').click();
     cy.get('[data-cy="note"]').click();
     cy.get('[data-cy="editor-mode-btn"]').click();
-    cy.contains('# Type here your awesome note').type(
+    cy.contains('# newNote').type(
       'This is a test note, Hello World!'
     );
     cy.get('[data-cy="save-note-btn"]').click();
