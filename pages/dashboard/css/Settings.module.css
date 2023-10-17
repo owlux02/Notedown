@@ -28,8 +28,13 @@
   border-top: 1px solid #e51a21;
 }
 
+.dangerZoneContainer h2 {
+  margin-top: 5px;
+}
+
 .dangerZoneContainer button {
   background: #e51a21;
+  margin-top: 5px;
 
   @mixin hover {
     background: #c7191f;
