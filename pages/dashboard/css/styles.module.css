@@ -19,10 +19,27 @@
 .previewContainer {
   width: 100%;
   padding: 16px 5px;
+  overflow: auto;
+}
+
+.previewContainer p {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.previewContainer code {
+  background: #292b32;
+  color: #C1C2C5;
+  padding: 0 4px;
+  border-radius: 3px;
 }
 
 .previewContainer h1 {
   margin: 0 0 10px 0;
+}
+
+.previewContainer h2 {
+  margin-top: 5px;
 }
 
 .modeButton {

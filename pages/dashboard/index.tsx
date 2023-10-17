@@ -17,6 +17,7 @@ import NavDesktop from './components/Nav/Desktop/Nav';
 
 const Dashboard = ({ notesFromServer }: any) => {
   const [notes, setNotes]: any = useState([]);
+  const [notesCopy, setNotesCopy]: any = useState(notesFromServer); // for filtering
   const [noteContent, setNoteContent] = useState('');
   const [editorMode, setEditorMode] = useState(false);
   const [noteTitle, setNoteTitle] = useState('');
@@ -29,17 +30,23 @@ const Dashboard = ({ notesFromServer }: any) => {
   const saveNote = async () => {
     setSentSaveNote(true);
     const username = localStorage.getItem('username');
-    const noteIndex = notes.findIndex((note: any) => note.label === noteTitle);
+    const noteIndex = notesCopy.findIndex((note: any) => note.label === noteTitle);
 
     const noteValue = editorMDRef?.current?.value || noteContent;
 
-    notes.at(noteIndex).content = noteValue ?? '# Type here your awesome note';
+    notesCopy.at(noteIndex).content = noteValue ?? '# Type here your awesome note';
+
+    const otherNotes = notesCopy.filter(
+      (note: any) => note.label !== noteTitle
+    );
+
     setNotes([...notes]);
+    setNotesCopy([...notes, ...otherNotes]);
 
     const { error } = await supabase
       .from(TABLE_NAME)
       .update({
-        notes: [...notes],
+        notes: [...notesCopy],
       })
       .eq('name', username)
       .select();
@@ -58,10 +65,11 @@ const Dashboard = ({ notesFromServer }: any) => {
     if (confirmDelete) {
       const username = localStorage.getItem('username');
 
-      const notesFiltered = notes.filter(
+      const notesFiltered = notesCopy.filter(
         (note: any) => note.label !== event.currentTarget.id
       );
       setNotes(notesFiltered);
+      setNotesCopy(notesFiltered);
 
       const { error } = await supabase
         .from(TABLE_NAME)
@@ -96,7 +104,12 @@ const Dashboard = ({ notesFromServer }: any) => {
       setNoteTitle(newNote);
       setNotes([
         ...notes,
-        { label: newNote, content: '# Type here your awesome note' },
+        { label: newNote, content: `# ${newNote}` },
+      ]);
+
+      setNotesCopy([
+        ...notesCopy,
+        { label: newNote, content: `# ${newNote}` },
       ]);
       return;
     }
@@ -115,6 +128,7 @@ const Dashboard = ({ notesFromServer }: any) => {
         (note: any) => note.name === user
       );
       setNotes(findYourNotes.notes);
+      setNotesCopy(findYourNotes.notes);
       setFirstPageLoad(false);
     }
   }, [firstPageLoad, notesFromServer]);
@@ -141,7 +155,7 @@ const Dashboard = ({ notesFromServer }: any) => {
 
         <NavDesktop
           notesClient={notes}
-          notesServer={notesFromServer}
+          notesServer={notesCopy}
           createNote={createNote}
           editorMode={setEditorMode}
           noteContent={setNoteContent}
@@ -153,7 +167,13 @@ const Dashboard = ({ notesFromServer }: any) => {
         <section className={styles.previewContainer}>
           {noteContent === '' && !editorMode ? (
             <div className={styles.notFound}>
-              <Image src="/notfound.svg" alt="404" width={250} height={250} priority />
+              <Image
+                src="/notfound.svg"
+                alt="404"
+                width={250}
+                height={250}
+                priority
+              />
               Oh, there is no content here, try selecting a note in the menu.
             </div>
           ) : null}
@@ -166,7 +186,7 @@ const Dashboard = ({ notesFromServer }: any) => {
                 onBlur={() => setNoteContent(editorMDRef.current.value)}
                 ref={editorMDRef}
                 name="editor"
-                autoComplete='off'
+                autoComplete="off"
                 autoFocus
               ></textarea>
             </>
