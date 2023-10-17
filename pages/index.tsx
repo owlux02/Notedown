@@ -34,7 +34,7 @@ const Home = () => {
         <meta property="twitter:domain" content="notedown-md.vercel.app" />
         <meta
           property="twitter:url"
-          content="https://notedown-md.vercel.app/img/ogImage.png"
+          content="https://notedown-md.vercel.app/"
         />
         <meta name="twitter:title" content="Notedown" />
         <meta
