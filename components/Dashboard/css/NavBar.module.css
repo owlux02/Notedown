@@ -115,6 +115,7 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
+  --group-child-width: none !important;
   width: 100%;
   gap: 2px;
 }
@@ -123,6 +124,29 @@
   max-width: none !important;
   margin-left: 20px;
   margin-right: 20px;
+}
+
+.folderFile {
+  width: 100%;
+  margin-left: 10px !important;
+
+  padding: rem(8px) var(--mantine-spacing-xs);
+  text-decoration: none;
+  border-radius: var(--mantine-radius-sm);
+  font-size: var(--mantine-font-size-sm);
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+  line-height: 1;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-0),
+      var(--mantine-color-dark-6)
+    );
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+  }
 }
 
 .navbarMobile {
@@ -142,6 +166,39 @@
   justify-content: space-between;
   width: 100%;
   max-width: none !important;
+}
+
+.flexFolder {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1.3rem;
+  padding-left: 1.3rem;
+}
+
+.flexFolder details {
+  width: 100%;
+}
+
+.flexFolder summary {
+  display: flex;
+  gap: 7px;
+  cursor: pointer;
+  user-select: none;
+  padding: rem(8px) var(--mantine-spacing-xs);
+  text-decoration: none;
+  border-radius: var(--mantine-radius-sm);
+  font-size: var(--mantine-font-size-sm);
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+  line-height: 1;
+  font-weight: 500;
+
+  &:hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-0),
+      var(--mantine-color-dark-6)
+    );
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+  }
 }
 
 @media screen and (max-width: 767px) {

@@ -18,11 +18,14 @@ const NavDesktop = ({
   notesClient,
   notesServer,
   createNote,
+  createNoteInnerFolder,
+  createFolder,
   editorMode,
   noteContent,
   deleteNote,
   noteTitle,
   filterNotes,
+  folderNameState,
 }: any) => {
   return (
     <Box className={classes.navbar} visibleFrom="sm">
@@ -54,6 +57,32 @@ const NavDesktop = ({
             Your Notes
           </Text>
           <Group>
+            <Tooltip label="Create a new folder" withArrow position="right">
+              <ActionIcon
+                variant="default"
+                size={30}
+                pl={2}
+                pr={2}
+                onClick={createFolder}
+                data-cy="create-note-btn"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  className="bi bi-folder-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M9.828 3h3.982a2 2 0 0 1 1.992 2.181l-.637 7A2 2 0 0 1 13.174 14H2.825a2 2 0 0 1-1.991-1.819l-.637-7a1.99 1.99 0 0 1 .342-1.31L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3zm-8.322.12C1.72 3.042 1.95 3 2.19 3h5.396l-.707-.707A1 1 0 0 0 6.172 2H2.5a1 1 0 0 0-1 .981l.006.139z" />
+                </svg>
+                <IconPlus
+                  style={{ width: rem(12), height: rem(12) }}
+                  stroke={1.5}
+                />
+              </ActionIcon>
+            </Tooltip>
+
             <Tooltip label="Create a new note" withArrow position="right">
               <ActionIcon
                 variant="default"
@@ -85,6 +114,8 @@ const NavDesktop = ({
           notes={notesClient}
           onSetContent={noteContent}
           onDeleteNote={deleteNote}
+          createNoteInnerFolder={createNoteInnerFolder}
+          folderNameState={folderNameState}
           onClickNote={() => {
             if (editorMode) {
               editorMode(false);
