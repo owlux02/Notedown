@@ -216,4 +216,13 @@
     margin-left: 0px !important;
     margin-right: 0px !important;
   }
+
+  .flexFolder {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .flexFolder div {
+    margin-left: 10px;
+  }
 }

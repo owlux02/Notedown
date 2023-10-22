@@ -224,7 +224,7 @@ const Dashboard = ({ notesFromServer }: any) => {
   const createNoteInnerFolder = () => {
     const newNote: string | null = prompt('Name of your note');
 
-    console.log(folderName)
+    console.log(folderName);
     notes
       .find((note: any) => note.label === folderName)
       .notes.push({
@@ -272,6 +272,10 @@ const Dashboard = ({ notesFromServer }: any) => {
           deleteNote={deleteNote}
           noteTitle={setNoteTitle}
           filterNotes={setNotes}
+          createFolder={createFolder}
+          folderNameState={setFolderName}
+          createNoteInnerFolder={createNoteInnerFolder}
+          deleteFolder={deleteFolder}
         />
 
         <NavDesktop

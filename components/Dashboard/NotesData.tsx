@@ -11,8 +11,6 @@ import {
 } from '@mantine/core';
 import { IconMenu2 } from '@tabler/icons-react';
 
-import { useEffect, useState } from 'react';
-
 type Note = {
   type: string;
   label: string;
@@ -118,7 +116,7 @@ const NotesData = ({
           ))}
         </details>
         <div onClick={() => folderNameState(note?.label)}>
-          <Popover width={200} position="bottom" withArrow shadow="md">
+          <Popover width={190} position="bottom" withArrow shadow="md" zIndex={10000000}>
             <Popover.Target>
               <ActionIcon
                 variant="default"
