@@ -109,7 +109,6 @@ const Dashboard = ({ notesFromServer }: any) => {
       const notesFiltered = notesCopy.filter(
         (note: any) => note.label !== event.currentTarget.id
       );
-      console.log(notesFiltered);
 
       if (notesFiltered[0].type === 'folder') {
         notesFiltered[0].notes = notesFiltered[0].notes.filter(
@@ -156,6 +155,37 @@ const Dashboard = ({ notesFromServer }: any) => {
     return null;
   };
 
+  const deleteFolder = async (event: any) => {
+    const confirmDelete = window.confirm('Are you sure?');
+
+    if (confirmDelete) {
+      const username = localStorage.getItem('username');
+
+      const notesFiltered = notesCopy.filter(
+        (note: any) => note.label !== event.currentTarget.id
+      );
+
+      setNotes(notesFiltered);
+      setNotesCopy(notesFiltered);
+
+      const { error } = await supabase
+        .from(TABLE_NAME)
+        .update({
+          notes: [...notesFiltered],
+        })
+        .eq('name', username)
+        .select();
+
+      if (error) {
+        toast.error('Something went wrong');
+        throw new Error(error.message);
+      }
+      toast.success('Folder deleted!');
+      return;
+    }
+    return null;
+  };
+
   const createNote = () => {
     const newNote: any = prompt('Name of your note');
 
@@ -187,13 +217,14 @@ const Dashboard = ({ notesFromServer }: any) => {
   };
 
   const createFolder = () => {
-    const newFolder: any = prompt('Name of your folder');
+    const newFolder: string | null = prompt('Name of your folder');
     setNotes([...notes, { label: newFolder, notes: [], type: 'folder' }]);
   };
 
   const createNoteInnerFolder = () => {
-    const newNote: any = prompt('Name of your note');
+    const newNote: string | null = prompt('Name of your note');
 
+    console.log(folderName)
     notes
       .find((note: any) => note.label === folderName)
       .notes.push({
@@ -253,6 +284,7 @@ const Dashboard = ({ notesFromServer }: any) => {
           editorMode={setEditorMode}
           noteContent={setNoteContent}
           deleteNote={deleteNote}
+          deleteFolder={deleteFolder}
           noteTitle={setNoteTitle}
           filterNotes={setNotes}
         />

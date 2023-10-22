@@ -23,6 +23,7 @@ const NavDesktop = ({
   editorMode,
   noteContent,
   deleteNote,
+  deleteFolder,
   noteTitle,
   filterNotes,
   folderNameState,
@@ -114,6 +115,7 @@ const NavDesktop = ({
           notes={notesClient}
           onSetContent={noteContent}
           onDeleteNote={deleteNote}
+          onDeleteFolder={deleteFolder}
           createNoteInnerFolder={createNoteInnerFolder}
           folderNameState={folderNameState}
           onClickNote={() => {
