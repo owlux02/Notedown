@@ -32,21 +32,26 @@ const Dashboard = ({ notesFromServer }: any) => {
   const saveNote = async () => {
     setSentSaveNote(true);
     const username = localStorage.getItem('username');
+
     const noteIndex = notesCopy.findIndex(
       (note: any) => note.label === noteTitle
     );
 
+    // If note is on a folder, Find index of parent.
+    const noteFolderIndex = notesCopy.findIndex(
+      (note: any) => note.label === folderName
+    );
+
     const noteValue = editorMDRef?.current?.value || noteContent;
 
-    if (notesCopy.at(noteIndex).type === 'folder') {
+    if (notesCopy.at(noteFolderIndex).type === 'folder') {
       const noteIndexFolder = notesCopy
         .at(noteIndex)
         .notes.findIndex((note: any) => {
           note.label !== noteTitle;
-          console.log('noteLabel:', note.label);
-          console.log('noteTitle:', noteTitle);
         });
-      notesCopy.at(noteIndex).notes.at(noteIndexFolder).content =
+
+      notesCopy.at(noteFolderIndex).notes.at(noteIndexFolder).content =
         noteValue ?? '# Type here your awesome note';
 
       const otherNotes = notesCopy
@@ -106,15 +111,20 @@ const Dashboard = ({ notesFromServer }: any) => {
     if (confirmDelete) {
       const username = localStorage.getItem('username');
 
+      // If note is on a folder, Find index of parent.
+      const noteFolderIndex = notesCopy.findIndex(
+        (note: any) => note.label === folderName
+      );
+
       const notesFiltered = notesCopy.filter(
         (note: any) => note.label !== event.currentTarget.id
       );
 
-      if (notesFiltered[0].type === 'folder') {
-        notesFiltered[0].notes = notesFiltered[0].notes.filter(
-          (note: any) => note.label !== event.currentTarget.id
-        );
-        console.log(notesFiltered)
+      if (notesFiltered.at(noteFolderIndex).type === 'folder') {
+        notesFiltered.at(noteFolderIndex).notes = notesFiltered
+          .at(noteFolderIndex)
+          .notes.filter((note: any) => note.label !== event.currentTarget.id);
+        console.log(notesFiltered.at(noteFolderIndex).notes);
 
         setNotes(notesFiltered);
         setNotesCopy(notesFiltered);
