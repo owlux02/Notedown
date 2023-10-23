@@ -114,6 +114,7 @@ const Dashboard = ({ notesFromServer }: any) => {
         notesFiltered[0].notes = notesFiltered[0].notes.filter(
           (note: any) => note.label !== event.currentTarget.id
         );
+        console.log(notesFiltered)
 
         setNotes(notesFiltered);
         setNotesCopy(notesFiltered);
@@ -221,6 +222,7 @@ const Dashboard = ({ notesFromServer }: any) => {
 
     if (newFolder) {
       setNotes([...notes, { label: newFolder, notes: [], type: 'folder' }]);
+      setNotesCopy([...notes, { label: newFolder, notes: [], type: 'folder' }]);
       return;
     }
     return null;
