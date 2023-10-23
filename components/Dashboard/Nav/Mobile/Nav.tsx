@@ -82,6 +82,8 @@ const NavMobile = ({
                 Your Notes
               </Text>
               <Group>
+
+            <Tooltip label="Create a new folder" zIndex={100000000} withArrow position="right">
                 <Button
                   variant="default"
                   pl={2}
@@ -104,7 +106,9 @@ const NavMobile = ({
                     stroke={1.5}
                   />
                 </Button>
+              </Tooltip>
 
+            <Tooltip label="Create a new note" zIndex={100000000} withArrow position="right">
                 <Button
                   variant="default"
                   pl={2}
@@ -127,6 +131,7 @@ const NavMobile = ({
                     stroke={1.5}
                   />
                 </Button>
+              </Tooltip>
               </Group>
             </header>
 
@@ -141,6 +146,7 @@ const NavMobile = ({
                 if (editorMode) {
                   editorMode(false);
                 }
+                closeDrawer();
               }}
               noteTitle={noteTitle}
             />

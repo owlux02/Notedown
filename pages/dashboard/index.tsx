@@ -218,23 +218,31 @@ const Dashboard = ({ notesFromServer }: any) => {
 
   const createFolder = () => {
     const newFolder: string | null = prompt('Name of your folder');
-    setNotes([...notes, { label: newFolder, notes: [], type: 'folder' }]);
+
+    if (newFolder) {
+      setNotes([...notes, { label: newFolder, notes: [], type: 'folder' }]);
+      return;
+    }
+    return null;
   };
 
   const createNoteInnerFolder = () => {
     const newNote: string | null = prompt('Name of your note');
 
-    console.log(folderName);
-    notes
-      .find((note: any) => note.label === folderName)
-      .notes.push({
-        label: newNote,
-        content: `# ${newNote}`,
-        type: 'note',
-      });
+    if (newNote) {
+      notes
+        .find((note: any) => note.label === folderName)
+        .notes.push({
+          label: newNote,
+          content: `# ${newNote}`,
+          type: 'note',
+        });
 
-    setNotes([...notes]);
-    setNotesCopy([...notes]);
+      setNotes([...notes]);
+      setNotesCopy([...notes]);
+      return;
+    }
+    return null;
   };
 
   useEffect(() => {

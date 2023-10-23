@@ -182,6 +182,8 @@
 .flexFolder summary {
   display: flex;
   gap: 7px;
+  justify-content: space-between;
+  align-items: center;
   cursor: pointer;
   user-select: none;
   padding: rem(8px) var(--mantine-spacing-xs);
@@ -191,6 +193,8 @@
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
   line-height: 1;
   font-weight: 500;
+  padding-top: 0;
+  padding-bottom: 0;
 
   &:hover {
     background-color: light-dark(
@@ -199,6 +203,17 @@
     );
     color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
   }
+}
+
+.folderName {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.allNotesFolder {
+  border-left: 1px solid #333;
+  margin-left: 16px;
 }
 
 @media screen and (max-width: 767px) {
@@ -220,9 +235,5 @@
   .flexFolder {
     padding-right: 0;
     padding-left: 0;
-  }
-
-  .flexFolder div {
-    margin-left: 10px;
   }
 }
