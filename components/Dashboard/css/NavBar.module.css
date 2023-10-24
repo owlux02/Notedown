@@ -80,6 +80,7 @@
   padding-right: calc(var(--mantine-spacing-md) - rem(6px));
   padding-bottom: var(--mantine-spacing-md);
   overflow-y: auto;
+  overflow-x: hidden;
   max-height: 100vh;
   max-width: none !important;
   width: 100%;
@@ -111,10 +112,17 @@
   }
 }
 
+.text {
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  max-width: 85%;
+}
+
 .navNotes {
   flex-direction: column;
   align-items: stretch;
   justify-content: space-between;
+  --group-child-width: none !important;
   width: 100%;
   gap: 2px;
 }
@@ -122,7 +130,30 @@
 .navNotes a {
   max-width: none !important;
   margin-left: 20px;
-  margin-right: 20px;
+  margin-right: 18px;
+}
+
+.folderFile {
+  width: 100%;
+  margin-left: 3px !important;
+  margin-right: 0 !important;
+  padding: rem(8px) var(--mantine-spacing-xs);
+  text-decoration: none;
+  border-radius: var(--mantine-radius-sm);
+  font-size: var(--mantine-font-size-sm);
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+  line-height: 1;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+
+  &:hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-0),
+      var(--mantine-color-dark-6)
+    );
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+  }
 }
 
 .navbarMobile {
@@ -144,6 +175,55 @@
   max-width: none !important;
 }
 
+.flexFolder {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 1.3rem;
+  padding-left: 1.2rem;
+}
+
+.flexFolder details {
+  width: 100%;
+}
+
+.flexFolder summary {
+  display: flex;
+  gap: 7px;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  padding: rem(8px) var(--mantine-spacing-xs);
+  text-decoration: none;
+  border-radius: var(--mantine-radius-sm);
+  font-size: var(--mantine-font-size-sm);
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+  line-height: 1;
+  font-weight: 500;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 0;
+
+  &:hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-0),
+      var(--mantine-color-dark-6)
+    );
+    color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+  }
+}
+
+.folderName {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.allNotesFolder {
+  border-left: 1px solid #333;
+  margin-left: 16px;
+}
+
 @media screen and (max-width: 767px) {
   .collections {
     padding: 0;
@@ -158,5 +238,11 @@
   .navNotes a {
     margin-left: 0px !important;
     margin-right: 0px !important;
+    padding-right: 7px !important;
+  }
+
+  .flexFolder {
+    padding-right: 0;
+    padding-left: 0;
   }
 }
