@@ -41,21 +41,19 @@ const Dashboard = ({ notesFromServer }: any) => {
     const noteFolderIndex = notesCopy.findIndex(
       (note: any) => note.label === folderName
     );
-
     const noteValue = editorMDRef?.current?.value || noteContent;
 
-    if (notesCopy.at(noteFolderIndex).type === 'folder') {
+    if (notesCopy.at(noteIndex).type === "folder") {
       const noteIndexFolder = notesCopy
-        .at(noteIndex)
+        .at(noteFolderIndex)
         .notes.findIndex((note: any) => {
           note.label !== noteTitle;
         });
-
       notesCopy.at(noteFolderIndex).notes.at(noteIndexFolder).content =
         noteValue ?? '# Type here your awesome note';
 
       const otherNotes = notesCopy
-        .at(noteIndex)
+        .at(noteFolderIndex)
         .notes.filter((note: any) => note.label !== noteTitle);
 
       setNotes([...notes]);
@@ -111,6 +109,10 @@ const Dashboard = ({ notesFromServer }: any) => {
     if (confirmDelete) {
       const username = localStorage.getItem('username');
 
+      const noteIndex = notesCopy.findIndex(
+        (note: any) => note.label === noteTitle
+      );
+
       // If note is on a folder, Find index of parent.
       const noteFolderIndex = notesCopy.findIndex(
         (note: any) => note.label === folderName
@@ -124,7 +126,6 @@ const Dashboard = ({ notesFromServer }: any) => {
         notesFiltered.at(noteFolderIndex).notes = notesFiltered
           .at(noteFolderIndex)
           .notes.filter((note: any) => note.label !== event.currentTarget.id);
-        console.log(notesFiltered.at(noteFolderIndex).notes);
 
         setNotes(notesFiltered);
         setNotesCopy(notesFiltered);
@@ -215,12 +216,22 @@ const Dashboard = ({ notesFromServer }: any) => {
       setNoteTitle(newNote);
       setNotes([
         ...notes,
-        { label: newNote, content: `# ${newNote}`, type: 'note' },
+        {
+          label: newNote,
+          content: `# ${newNote}`,
+          type: 'note',
+          isOnFolder: false,
+        },
       ]);
 
       setNotesCopy([
         ...notesCopy,
-        { label: newNote, content: `# ${newNote}`, type: 'note' },
+        {
+          label: newNote,
+          content: `# ${newNote}`,
+          type: 'note',
+          isOnFolder: false,
+        },
       ]);
       return;
     }
@@ -248,6 +259,7 @@ const Dashboard = ({ notesFromServer }: any) => {
           label: newNote,
           content: `# ${newNote}`,
           type: 'note',
+          isOnFolder: true,
         });
 
       setNotes([...notes]);
