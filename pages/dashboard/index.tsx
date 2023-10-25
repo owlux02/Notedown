@@ -32,65 +32,48 @@ const Dashboard = ({ notesFromServer }: any) => {
   const saveNote = async () => {
     setSentSaveNote(true);
     const username = localStorage.getItem('username');
-
     const noteIndex = notesCopy.findIndex(
       (note: any) => note.label === noteTitle
     );
 
-    // If note is on a folder, Find index of parent.
-    const noteFolderIndex = notesCopy.findIndex(
-      (note: any) => note.label === folderName
-    );
     const noteValue = editorMDRef?.current?.value || noteContent;
 
-    if (notesCopy.at(noteIndex).type === "folder") {
-      const noteIndexFolder = notesCopy
-        .at(noteFolderIndex)
-        .notes.findIndex((note: any) => {
-          note.label !== noteTitle;
-        });
-      notesCopy.at(noteFolderIndex).notes.at(noteIndexFolder).content =
-        noteValue ?? '# Type here your awesome note';
+    const isFolder = notesCopy[noteIndex]?.type === 'folder';
 
-      const otherNotes = notesCopy
-        .at(noteFolderIndex)
-        .notes.filter((note: any) => note.label !== noteTitle);
-
-      setNotes([...notes]);
-      setNotesCopy([...notes, ...otherNotes]);
-
-      const { error } = await supabase
-        .from(TABLE_NAME)
-        .update({
-          notes: [...notesCopy],
-        })
-        .eq('name', username)
-        .select();
-
-      if (error) {
-        toast.error('Something went wrong');
-        throw new Error(error.message);
+    const saveNoteContent = (index: number, content: string) => {
+      if (index !== -1) {
+        notesCopy[index].content = content;
       }
-      toast.success('Note saved!');
-      setSentSaveNote(false);
+    };
 
-      return;
+    if (isFolder) {
+      const noteFolderIndex = notesCopy.findIndex(
+        (note: any) => note.label === folderName
+      );
+      const noteIndexFolder = notesCopy[noteFolderIndex]?.notes.findIndex(
+        (note: any) => note.label !== noteTitle
+      );
+
+      saveNoteContent(
+        noteIndexFolder,
+        noteValue ?? '# Type here your awesome note'
+      );
+
+      const otherNotes = notesCopy[noteFolderIndex]?.notes.filter(
+        (note: any) => note.label !== noteTitle
+      );
+      notesCopy[noteFolderIndex].notes = otherNotes;
+    } else {
+      saveNoteContent(noteIndex, noteValue ?? '# Type here your awesome note');
     }
 
-    notesCopy.at(noteIndex).content =
-      noteValue ?? '# Type here your awesome note';
-
-    const otherNotes = notesCopy.filter(
-      (note: any) => note.label !== noteTitle
-    );
-
     setNotes([...notes]);
-    setNotesCopy([...notes, ...otherNotes]);
+    setNotesCopy([...notes, ...(notesCopy[noteIndex]?.notes || [])]);
 
     const { error } = await supabase
       .from(TABLE_NAME)
       .update({
-        notes: [...notesCopy],
+        notes: notesCopy,
       })
       .eq('name', username)
       .select();
@@ -99,76 +82,56 @@ const Dashboard = ({ notesFromServer }: any) => {
       toast.error('Something went wrong');
       throw new Error(error.message);
     }
+
     toast.success('Note saved!');
     setSentSaveNote(false);
   };
 
   const deleteNote = async (event: any) => {
-    const confirmDelete = window.confirm('Are you sure?');
+    const confirmDelete = confirm('Are you sure?');
 
-    if (confirmDelete) {
-      const username = localStorage.getItem('username');
-
-      const noteIndex = notesCopy.findIndex(
-        (note: any) => note.label === noteTitle
-      );
-
-      // If note is on a folder, Find index of parent.
-      const noteFolderIndex = notesCopy.findIndex(
-        (note: any) => note.label === folderName
-      );
-
-      const notesFiltered = notesCopy.filter(
-        (note: any) => note.label !== event.currentTarget.id
-      );
-
-      if (notesFiltered.at(noteFolderIndex).type === 'folder') {
-        notesFiltered.at(noteFolderIndex).notes = notesFiltered
-          .at(noteFolderIndex)
-          .notes.filter((note: any) => note.label !== event.currentTarget.id);
-
-        setNotes(notesFiltered);
-        setNotesCopy(notesFiltered);
-
-        const { error } = await supabase
-          .from(TABLE_NAME)
-          .update({
-            notes: [...notesFiltered],
-          })
-          .eq('name', username)
-          .select();
-
-        if (error) {
-          toast.error('Something went wrong');
-          throw new Error(error.message);
-        }
-        toast.success('Note deleted!');
-        return;
-      }
-
-      setNotes(notesFiltered);
-      setNotesCopy(notesFiltered);
-
-      const { error } = await supabase
-        .from(TABLE_NAME)
-        .update({
-          notes: [...notesFiltered],
-        })
-        .eq('name', username)
-        .select();
-
-      if (error) {
-        toast.error('Something went wrong');
-        throw new Error(error.message);
-      }
-      toast.success('Note deleted!');
-      return;
+    if (!confirmDelete) {
+      return null;
     }
-    return null;
+
+    const username = localStorage.getItem('username');
+    const noteLabel = event.currentTarget.id;
+
+    const noteFolderIndex = notesCopy.findIndex(
+      (note: any) => note.label === folderName
+    );
+    const notesFiltered = notesCopy.filter(
+      (note: any) => note.label !== noteLabel
+    );
+
+    if (
+      noteFolderIndex !== -1 &&
+      notesFiltered[noteFolderIndex].type === 'folder'
+    ) {
+      notesFiltered[noteFolderIndex].notes = notesFiltered[
+        noteFolderIndex
+      ].notes.filter((note: any) => note.label !== noteLabel);
+    }
+
+    setNotes(notesFiltered);
+    setNotesCopy(notesFiltered);
+
+    const { error } = await supabase
+      .from(TABLE_NAME)
+      .update({ notes: [...notesFiltered] })
+      .eq('name', username)
+      .select();
+
+    if (error) {
+      toast.error('Something went wrong');
+      throw new Error(error.message);
+    }
+
+    toast.success('Note deleted!');
   };
 
   const deleteFolder = async (event: any) => {
-    const confirmDelete = window.confirm('Are you sure?');
+    const confirmDelete = confirm('Are you sure?');
 
     if (confirmDelete) {
       const username = localStorage.getItem('username');
@@ -199,73 +162,60 @@ const Dashboard = ({ notesFromServer }: any) => {
   };
 
   const createNote = () => {
-    const newNote: any = prompt('Name of your note');
+    const newNote = prompt('Name of your note');
 
-    // Check if the note already exists
-    const isNoteExist = notes.find((note: any) => note.label === newNote);
-    const isNoteCopyExist = notesCopy.find(
-      (note: any) => note.label === newNote
-    );
+    if (!newNote) return null;
 
-    if (isNoteExist || isNoteCopyExist) {
+    const isNoteExist = notes.some((note: any) => note.label === newNote);
+
+    if (isNoteExist) {
       toast.error('Note already exists');
       return;
     }
 
-    if (newNote) {
-      setNoteTitle(newNote);
-      setNotes([
-        ...notes,
-        {
-          label: newNote,
-          content: `# ${newNote}`,
-          type: 'note',
-          isOnFolder: false,
-        },
-      ]);
+    const newNoteData = {
+      label: newNote,
+      content: `# ${newNote}`,
+      type: 'note',
+      isOnFolder: false,
+    };
 
-      setNotesCopy([
-        ...notesCopy,
-        {
-          label: newNote,
-          content: `# ${newNote}`,
-          type: 'note',
-          isOnFolder: false,
-        },
-      ]);
-      return;
-    }
-    return null;
+    setNoteTitle(newNote);
+    setNotes([...notes, newNoteData]);
+    setNotesCopy([...notesCopy, newNoteData]);
   };
 
   const createFolder = () => {
     const newFolder: string | null = prompt('Name of your folder');
 
     if (newFolder) {
-      setNotes([...notes, { label: newFolder, notes: [], type: 'folder' }]);
-      setNotesCopy([...notes, { label: newFolder, notes: [], type: 'folder' }]);
-      return;
+      const newFolderObject = { label: newFolder, notes: [], type: 'folder' };
+      setNotes((prevNotes: any) => [...prevNotes, newFolderObject]);
+      setNotesCopy((prevNotesCopy: any) => [...prevNotesCopy, newFolderObject]);
     }
-    return null;
   };
 
   const createNoteInnerFolder = () => {
     const newNote: string | null = prompt('Name of your note');
 
     if (newNote) {
-      notes
-        .find((note: any) => note.label === folderName)
-        .notes.push({
-          label: newNote,
-          content: `# ${newNote}`,
-          type: 'note',
-          isOnFolder: true,
-        });
+      const noteToAdd = {
+        label: newNote,
+        content: `# ${newNote}`,
+        type: 'note',
+        isOnFolder: true,
+      };
+
+      notesCopy.forEach((note: any) => {
+        if (note.label === folderName) {
+          note.notes.push(noteToAdd);
+        }
+      });
 
       setNotes([...notes]);
       setNotesCopy([...notes]);
-      return;
     }
+
     return null;
   };
 

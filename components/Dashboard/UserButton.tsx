@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import classes from './css/UserButton.module.css';
 
-export default function UserButton() {
+const UserButton = () => {
   const [username, setUsername] = useState('');
   const [isOpen, setIsOpen] = useState(false);
 
@@ -64,3 +64,5 @@ export default function UserButton() {
     </UnstyledButton>
   );
 }
+
+export default UserButton;

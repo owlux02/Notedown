@@ -3,7 +3,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { CopyIcon, PasteIcon } from './assets/assets';
 import styles from './styles.module.css';
 
-const CodeMD = ({ children, language }: any) => {
+const CodeMD = ({ children }: any) => {
   const [isCopied, setIsCopied] = useState(false);
 
   const setCopied = () => {
