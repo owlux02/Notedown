@@ -11,7 +11,6 @@ import {
   Burger,
   Drawer,
   ScrollArea,
-  ActionIcon,
 } from '@mantine/core';
 import { IconSearch, IconPlus } from '@tabler/icons-react';
 
