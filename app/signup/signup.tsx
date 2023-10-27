@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, Input, Title } from '@mantine/core';
 
 import {
@@ -12,9 +14,8 @@ import { useInputState } from '@mantine/hooks';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { FormEvent, useRef, useState } from 'react';
 
-import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import { Toaster, toast } from 'sonner';
 
@@ -105,7 +106,7 @@ const SignUp = () => {
   const createAccount = async (event: FormEvent) => {
     event.preventDefault();
     setLoading(true);
-  
+
     // find if user exists
     const { data } = await supabase.from(TABLE_NAME).select('name');
     const user = data?.find((user) => user.name === userRef.current?.value);
@@ -136,11 +137,6 @@ const SignUp = () => {
 
   return (
     <>
-      <Head>
-        <title>Sign Up / Notedown</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Toaster richColors />
       <div className={styles.container}>
         <form className={styles.form} onSubmit={createAccount}>
@@ -185,7 +181,13 @@ const SignUp = () => {
             {checks}
           </div>
 
-          <Button type="submit" mt={5} w="100%" disabled={loading} data-cy='createAccount-btn'>
+          <Button
+            type="submit"
+            mt={5}
+            w="100%"
+            disabled={loading}
+            data-cy="createAccount-btn"
+          >
             {loading ? 'Creating Account...' : 'Create Account'}
           </Button>
 
@@ -197,6 +199,6 @@ const SignUp = () => {
       <Footer />
     </>
   );
-}
+};
 
 export default SignUp;

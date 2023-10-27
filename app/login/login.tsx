@@ -1,3 +1,5 @@
+'use client';
+
 import {
   PasswordInput,
   Text,
@@ -7,9 +9,8 @@ import {
   Title,
 } from '@mantine/core';
 
-import Head from 'next/head';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 import styles from './styles.module.css';
 import Footer from '@/components/Footer/Footer';
@@ -56,15 +57,10 @@ const Login = () => {
     }
     toast.error('Wrong username or password');
     setLoading(false);
-  }
+  };
 
   return (
     <>
-      <Head>
-        <title>Login / Notedown</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Toaster richColors />
       <div className={styles.container}>
         <form className={styles.form} onSubmit={login}>
@@ -81,7 +77,7 @@ const Login = () => {
             required
             value={username}
             onChange={(event: any) => setUsername(event.target.value)}
-            data-cy='username-input-login'
+            data-cy="username-input-login"
           />
 
           <Group mb={5} mt={10}>
@@ -95,11 +91,17 @@ const Login = () => {
             ref={passRef}
             value={password}
             onChange={(event: any) => setPassword(event.target.value)}
-            data-cy='password-input-login'
+            data-cy="password-input-login"
             required
           />
 
-          <Button type="submit" mt={5} w="100%" disabled={loading} data-cy='login-btn'>
+          <Button
+            type="submit"
+            mt={5}
+            w="100%"
+            disabled={loading}
+            data-cy="login-btn"
+          >
             {loading ? 'Login...' : 'Login'}
           </Button>
 
@@ -111,6 +113,6 @@ const Login = () => {
       <Footer />
     </>
   );
-}
+};
 
 export default Login;
