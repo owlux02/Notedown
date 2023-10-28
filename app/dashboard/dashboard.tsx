@@ -1,4 +1,5 @@
-import Head from 'next/head';
+'use client';
+
 import Image from 'next/image';
 
 import { Button } from '@mantine/core';
@@ -238,11 +239,6 @@ const Dashboard = ({ notesFromServer }: any) => {
 
   return (
     <>
-      <Head>
-        <title>Dashboard / Notedown</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Toaster richColors />
       <main className={styles.container}>
         <NavMobile
@@ -339,13 +335,3 @@ const Dashboard = ({ notesFromServer }: any) => {
 };
 
 export default Dashboard;
-
-export const getServerSideProps = async () => {
-  const { data } = await supabase.from(TABLE_NAME).select('name, notes');
-
-  return {
-    props: {
-      notesFromServer: data,
-    },
-  };
-};

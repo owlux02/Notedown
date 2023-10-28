@@ -1,3 +1,5 @@
+'use client';
+
 import { Container, Group, ActionIcon, rem } from '@mantine/core';
 import { IconBrandGithub } from '@tabler/icons-react';
 import Image from 'next/image';

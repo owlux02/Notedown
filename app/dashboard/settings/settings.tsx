@@ -1,15 +1,25 @@
-import Head from 'next/head';
+'use client';
+
 import { Box, Checkbox, Text, Button } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { toast, Toaster } from 'sonner';
 
-import styles from './css/Settings.module.css';
+import styles from '../css/Settings.module.css';
 import { supabase } from '@/lib/supabaseClient';
 import { TABLE_NAME } from '@/consts/consts';
 
 const Settings = () => {
   const [darkMode, setDarkMode] = useState(true);
+
+  const deleteUserFromDB = async (username: string) => {
+    try {
+      await supabase.from(TABLE_NAME).delete().eq('name', username);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  };
 
   const deleteAccount = async () => {
     const username = localStorage.getItem('username');
@@ -18,32 +28,19 @@ const Settings = () => {
     );
 
     if (confirmation && confirmation === username) {
-      const deleteUserFromDB = () =>
-        new Promise((resolve) => {
-          resolve(supabase.from(TABLE_NAME).delete().eq('name', username));
-        });
+      const success = await deleteUserFromDB(username);
 
-      toast.promise(deleteUserFromDB, {
-        loading: 'Loading...',
-        success: (): any => {
-          toast.success('Account deleted');
-          localStorage.removeItem('username');
-          window.location.href = '/';
-          return;
-        },
-        error: (): any => {
-          toast.error('Failed to delete account')
-          return;
-        },
-      });
-      return;
-    }
-
-    if (confirmation !== username) {
+      if (success) {
+        toast.success('Account deleted');
+        localStorage.removeItem('username');
+        window.location.href = '/';
+        return;
+      } else {
+        toast.error('Failed to delete account');
+      }
+    } else if (confirmation !== username) {
       toast.error('Invalid confirmation');
-      return;
     }
-    return null;
   };
 
   useEffect(() => {
@@ -62,11 +59,6 @@ const Settings = () => {
 
   return (
     <>
-      <Head>
-        <title>Settings / Notedown</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <Toaster richColors />
       <Box p={15} className={styles.container}>
         <h1>Settings</h1>
@@ -93,7 +85,9 @@ const Settings = () => {
 
         <Box mt={35} className={styles.dangerZoneContainer}>
           <h2>Danger Zone</h2>
-          <Button onClick={deleteAccount} mt={2}>Delete my account</Button>
+          <Button onClick={deleteAccount} mt={0}>
+            Delete my account
+          </Button>
         </Box>
 
         <Link href="/dashboard" className={styles.goBack}>

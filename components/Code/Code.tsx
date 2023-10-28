@@ -31,9 +31,7 @@ const CodeMD = ({ children }: any) => {
         </CopyToClipboard>
       </div>
 
-      <pre>
-        {children.props.children}
-      </pre>
+      <pre>{children.props.children}</pre>
     </div>
   );
 };

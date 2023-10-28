@@ -1,3 +1,5 @@
+'use client';
+
 import { Group, Button, Box } from '@mantine/core';
 import Link from 'next/link';
 import Image from 'next/image';
