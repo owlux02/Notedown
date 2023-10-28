@@ -1,9 +1,7 @@
-import Head from 'next/head';
 import Script from 'next/script';
 import { Viewport } from 'next';
-import { ColorSchemeScript } from '@mantine/core';
+import { MantineProvider } from '@mantine/core';
 import '@mantine/core/styles.css';
-import ClientLayout from './ClientLayout';
 
 export const metadata = {
   title: 'Notedown',
@@ -47,13 +45,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <Head>
-        <ColorSchemeScript defaultColorScheme="dark" />
-      </Head>
-      <Script src="/static/theme.js" />
+    <html lang="en" data-mantine-color-scheme="dark">
+      <Script src="/static/theme.js" async />
       <body>
-        <ClientLayout>{children}</ClientLayout>
+        <MantineProvider defaultColorScheme="dark">{children}</MantineProvider>
       </body>
     </html>
   );
