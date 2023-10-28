@@ -50,8 +50,8 @@ export default function RootLayout({
     <html lang="en">
       <Head>
         <ColorSchemeScript defaultColorScheme="dark" />
-        <Script src="/static/theme.js" />
       </Head>
+      <Script src="/static/theme.js" />
       <body>
         <ClientLayout>{children}</ClientLayout>
       </body>
