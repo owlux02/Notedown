@@ -30,7 +30,7 @@ export const metadata = {
   },
   alternates: {
     canonical: 'https://notedown-md.vercel.app',
-  }
+  },
 };
 
 export const viewport: Viewport = {

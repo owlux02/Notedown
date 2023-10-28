@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Nav from '@/components/Nav/Nav';
 import Welcome from '@/components/Welcome/Welcome';
 import Footer from '@/components/Footer/Footer';
@@ -6,7 +5,8 @@ import Footer from '@/components/Footer/Footer';
 export const metadata = {
   openGraph: {
     title: 'Notedown',
-    description: 'Write better notes with Notedown, use Markdown and enjoy other features such as sync and even more!',
+    description:
+      'Write better notes with Notedown, use Markdown and enjoy other features such as sync and even more!',
     url: 'https://notedown-md.vercel.app/',
     siteName: 'Notedown',
     images: [
@@ -23,11 +23,12 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Notedown',
-    description: 'Write better notes with Notedown, use Markdown and enjoy other features such as sync and even more!',
+    description:
+      'Write better notes with Notedown, use Markdown and enjoy other features such as sync and even more!',
     creator: '@martinval11_',
     images: ['https://notedown-md.vercel.app/img/ogImage.png'],
   },
-}
+};
 
 const Home = () => {
   return (

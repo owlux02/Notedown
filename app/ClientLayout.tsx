@@ -1,7 +1,7 @@
 'use client';
 
-import { MantineProvider } from "@mantine/core";
-import { useEffect } from "react";
+import { MantineProvider } from '@mantine/core';
+import { useEffect } from 'react';
 
 export default function ClientLayout({
   children,
@@ -19,5 +19,7 @@ export default function ClientLayout({
       document.querySelector('html')!.dataset.mantineColorScheme = 'light';
     }
   }, []);
-  return <MantineProvider defaultColorScheme="auto">{children}</MantineProvider>;
+  return (
+    <MantineProvider defaultColorScheme="auto">{children}</MantineProvider>
+  );
 }

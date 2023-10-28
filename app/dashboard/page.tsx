@@ -6,6 +6,7 @@ export const metadata = {
   title: 'Dashboard / Notedown',
 };
 
+export const revalidate = 0;
 const getServerSideProps = async () => {
   const { data } = await supabase.from(TABLE_NAME).select('name, notes');
 
